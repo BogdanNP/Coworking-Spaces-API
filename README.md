@@ -19,8 +19,10 @@ Http Methods: POST, GET, PUT, DELETE
 Git -> Sourcetree https://www.sourcetreeapp.com/  
 
 ## Tema 1  
-1.Documentatie: De explicat ce face proiectul. Ce functionalitatiti expune si cum arata baza de date.  
--> O diagrama cu tabelele din baza de date  
+1.Documentatie: 
+-> De explicat ce face proiectul.  
+-> Ce functionalitatiti expune si cum arata baza de date.    
+-> O diagrama cu tabelele din baza de date.  
 2.Java Doc pentru metodele care nu fac parte dintr-un data class. Pentru fiecare clasa e necesar Javadoc.  
 3.Branch per tema.  
 4.Mai multe commituri pe tema, nu doar unul.  
