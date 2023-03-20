@@ -19,7 +19,7 @@ Http Methods: POST, GET, PUT, DELETE
 Git -> Sourcetree https://www.sourcetreeapp.com/  
 
 ## Tema 1  
-1.Documentatie: 
+1.Documentatie:  
 -> De explicat ce face proiectul.  
 -> Ce functionalitatiti expune si cum arata baza de date.    
 -> O diagrama cu tabelele din baza de date.  
