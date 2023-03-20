@@ -1,13 +1,13 @@
 # ProiectPS
 
-20 Martie -> Team 1
-27 Martie -> Restanta Tema 1
+20 Martie -> Team 1  
+27 Martie -> Restanta Tema 1  
 
-3 Aprilie -> Tema 2
-10 Aprilie -> Restanta Tema 2
+3 Aprilie -> Tema 2  
+10 Aprilie -> Restanta Tema 2  
 
-24 Aprilie -> Tema 3
-1 Mai -> Restanta Teama 3
+24 Aprilie -> Tema 3  
+1 Mai -> Restanta Teama 3  
 
 
 Pentru documentatie: https://dillinger.io/  
@@ -18,7 +18,7 @@ Tool pentru vizualizare API: POSTMAN https://www.postman.com/downloads/
 Http Methods: POST, GET, PUT, DELETE  
 Git -> Sourcetree https://www.sourcetreeapp.com/  
 
-Tema 1
+## Tema 1  
 1.Documentatie: De explicat ce face proiectul. Ce functionalitatiti expune si cum arata baza de date.  
 -> O diagrama cu tabelele din baza de date  
 2.Java Doc pentru metodele care nu fac parte dintr-un data class. Pentru fiecare clasa e necesar Javadoc.  
