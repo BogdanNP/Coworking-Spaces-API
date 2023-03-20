@@ -1,7 +1,7 @@
 # ProiectPS
-Pentru documentatie: https://dillinger.io/
-Pentru diagrame: https://www.planttext.com/
-IDE pentru cod: https://www.jetbrains.com/idea/  -> Community Edition
+Pentru documentatie: https://dillinger.io/ \n
+Pentru diagrame: https://www.planttext.com/ \n
+IDE pentru cod: https://www.jetbrains.com/idea/  -> Community Edition \n
 Spring Boot: https://spring.io/quickstart -> jos se gaseste si cum se creeaza un servicu REST
 Tool pentru vizualizare API: POSTMAN https://www.postman.com/downloads/
 Http Methods: POST, GET, PUT, DELETE
