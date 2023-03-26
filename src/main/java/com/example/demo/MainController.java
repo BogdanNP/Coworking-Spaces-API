@@ -158,7 +158,7 @@ public class MainController {
         deskRepository.delete(desk);
       }
     });
-    return "User Deleted!";
+    return "Desk Deleted!";
   }
 
   @PostMapping(path="/room/add") // Map ONLY POST Requests
