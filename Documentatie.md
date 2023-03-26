@@ -10,7 +10,7 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
     * creare cont  
     * logare in cont  
 ### Utilizator Inregistrat:
-    * visualizarea spatiilor  
+    * vizualizarea spatiilor  
     * vizualizarea preturilor  
     * vizualizarea in timp real a birourilor ocupate  
     * posibilitatea de inchirere a unui birou  
