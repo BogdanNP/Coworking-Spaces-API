@@ -10,7 +10,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-    private Double total;
+    private Float total;
     private Integer userId;
     private Integer deskId;
     private String status;
@@ -34,14 +34,14 @@ public class Order {
     /**
      * @return Double return the total
      */
-    public Double getTotal() {
+    public Float getTotal() {
         return total;
     }
 
     /**
      * @param total the total to set
      */
-    public void setTotal(Double total) {
+    public void setTotal(Float total) {
         this.total = total;
     }
 

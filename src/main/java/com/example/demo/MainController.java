@@ -5,13 +5,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.models.Desk;
+import com.example.demo.models.DeskAlignment;
 import com.example.demo.models.DeskRequest;
 import com.example.demo.models.Order;
 import com.example.demo.models.Room;
@@ -55,7 +59,7 @@ public class MainController {
     UserP user = new UserP();
     user.setUsername(username);
     userRepository.save(user);
-    return "Saved";
+    return "User Saved";
   }
 
   @GetMapping(path="/user/all")
@@ -63,6 +67,35 @@ public class MainController {
     // This returns a JSON or XML with the users
    return userRepository.findAll();
   } 
+
+  @PutMapping(path="/user/update") // Map ONLY POST Requests
+  public @ResponseBody String updateUser (
+      @RequestParam String username,
+      @RequestParam String password
+    ) {
+    Iterable<UserP> users = userRepository.findAll();
+    users.forEach(user -> {
+      if(user.getUsername().equals(username)){
+        userRepository.delete(user);
+        user.setPassword(password);
+        userRepository.save(user);
+      }
+    });
+    return "User Updated!";
+  }
+  
+  @DeleteMapping(path="/user/delete") // Map ONLY POST Requests
+  public @ResponseBody String deleteUsername (
+      @RequestParam("username") String username
+    ) {
+    Iterable<UserP> users = userRepository.findAll();
+    users.forEach(user -> {
+      if(user.getUsername().equals(username)){
+        userRepository.delete(user);
+      }
+    });
+    return "User Deleted!";
+  }
   
   @PostMapping(path="/desk/add") // Map ONLY POST Requests
   public @ResponseBody String addNewDesk (
@@ -91,6 +124,43 @@ public class MainController {
    return deskRepository.findAll();
   }  
 
+  @PutMapping(path="/desk/update") // Map ONLY PUt Requests
+  public @ResponseBody String updateDesk (
+    @RequestParam(required = true) Integer id, 
+    @RequestParam(required = false) Integer width, 
+    @RequestParam(required = false) Integer height, 
+    @RequestParam(required = false) Integer length, 
+    @RequestParam(required = false) Float tariff, 
+    @RequestParam(required = false) String tariffType
+    ) {
+    Iterable<Desk> desks = deskRepository.findAll();
+    desks.forEach(desk -> {
+      if(desk.getId().equals(id)){
+        deskRepository.delete(desk);
+        desk.setWidth(width);
+        desk.setHeight(height);
+        desk.setLength(length);
+        desk.setTariff(tariff);
+        desk.setTariffType(tariffType);
+        deskRepository.save(desk);
+      }
+    });
+    return "Desk Updated!";
+  }
+  
+  @DeleteMapping(path="/desk/delete") // Map ONLY DELETE Requests
+  public @ResponseBody String deleteDesk (
+      @RequestParam("id") Integer id
+    ) {
+    Iterable<Desk> desks = deskRepository.findAll();
+    desks.forEach(desk-> {
+      if(desk.getId().equals(id)){
+        deskRepository.delete(desk);
+      }
+    });
+    return "User Deleted!";
+  }
+
   @PostMapping(path="/room/add") // Map ONLY POST Requests
   public @ResponseBody String addNewRoom (
       @RequestParam Integer width, 
@@ -115,6 +185,42 @@ public class MainController {
     // This returns a JSON or XML with the users
    return roomRepository.findAll();
   }  
+
+  @PutMapping(path="/room/update") // Map ONLY POST Requests
+  public @ResponseBody String updateRoom (
+      @RequestParam Integer id,
+      @RequestParam(required = false) Integer width, 
+      @RequestParam(required = false) Integer length, 
+      @RequestParam(required = false) List<Integer> deskList, 
+      @RequestParam(required = false) String details
+    ) {
+    Iterable<Room> rooms = roomRepository.findAll();
+    rooms.forEach(room -> {
+      if(room.getId().equals(id)){
+        roomRepository.delete(room);
+        room.setWidth(width);
+        room.setLength(length);
+        room.setDeskList(deskList);
+        room.setDetails(details);
+        roomRepository.save(room);
+      }
+    });
+    return "Room Updated!";
+  }
+  
+  @DeleteMapping(path="/room/delete") // Map ONLY POST Requests
+  public @ResponseBody String deleteRoom (
+      @RequestParam("id") String id
+    ) {
+    Iterable<Room> rooms = roomRepository.findAll();
+    rooms.forEach(room -> {
+      if(room.getId().equals(id)){
+        roomRepository.delete(room);
+      }
+    });
+    return "Room Deleted!";
+  }
+  
   
   @PostMapping(path="/desk_request/add") // Map ONLY POST Requests
   public @ResponseBody String addNewDeskRequest (
@@ -143,10 +249,107 @@ public class MainController {
    return deskRequestRepository.findAll();
   }
 
+
+  
+  @PutMapping(path="/desk_request/update") // Map ONLY POST Requests
+  public @ResponseBody String updateDeskRequest (
+      @RequestParam Integer id,
+      @RequestParam(required = false) String status, 
+      @RequestParam(required = false) Integer userId, 
+      @RequestParam(required = false) Integer deskId, 
+      @RequestParam(required = false) Date startDate,
+      @RequestParam(required = false) Date endDate
+    ) {
+    Iterable<DeskRequest> deskRequests = deskRequestRepository.findAll();
+    deskRequests.forEach(deskRequest -> {
+      if(deskRequest.getId().equals(id)){
+        deskRequestRepository.delete(deskRequest);
+        deskRequest.setStatus(status);
+        deskRequest.setUserId(userId);
+        deskRequest.setDeskId(deskId);
+        deskRequest.setStartDate(startDate);
+        deskRequest.setEndDate(endDate);
+        deskRequestRepository.save(deskRequest);
+      }
+    });
+    return "Desk Request Updated!";
+  }
+  
+  @DeleteMapping(path="/desk_request/delete") // Map ONLY POST Requests
+  public @ResponseBody String deleteDeskRequest (
+      @RequestParam("id") String id
+    ) {
+    Iterable<DeskRequest> deskRequests = deskRequestRepository.findAll();
+    deskRequests.forEach(deskRequest -> {
+      if(deskRequest.getId().equals(id)){
+        deskRequestRepository.delete(deskRequest);
+      }
+    });
+    return "Desk Request Deleted!";
+  }
+  
+  
+  @PostMapping(path="/desk_alignment/add") // Map ONLY POST Requests
+  public @ResponseBody String addDeskAlignment (
+      @RequestParam Integer positionX, 
+      @RequestParam Integer positionY, 
+      @RequestParam String orientation
+    ) {
+    // @ResponseBody means the returned String is the response, not a view name
+    // @RequestParam means it is a parameter from the GET or POST request
+
+    DeskAlignment deskAlignment = new DeskAlignment();
+    deskAlignment.setPositionX(positionX);
+    deskAlignment.setPositionY(positionY);
+    deskAlignment.setOrientation(orientation);
+    deskAlignmentRepository.save(deskAlignment);
+    return "DeskAlignment Saved";
+  }
+
+  @GetMapping(path="/desk_alignment/all")
+  public @ResponseBody Iterable<DeskAlignment> getAllDeskAlignments() {
+    // This returns a JSON or XML with the users
+   return deskAlignmentRepository.findAll();
+  }  
+
+  @PutMapping(path="/desk_alignment/update") // Map ONLY PUT Requests
+  public @ResponseBody String updateDeskAlignment (
+      @RequestParam Integer id,
+      @RequestParam(required = false) Integer positionX, 
+      @RequestParam(required = false) Integer positionY, 
+      @RequestParam(required = false) String orientation
+    ) {
+    Iterable<DeskAlignment> deskAlignments = deskAlignmentRepository.findAll();
+    deskAlignments.forEach(deskAlignment -> {
+      if(deskAlignment.getDeskId().equals(id)){
+        deskAlignmentRepository.delete(deskAlignment);
+        deskAlignment.setPositionX(positionX);
+        deskAlignment.setPositionX(positionY);
+        deskAlignment.setOrientation(orientation);
+        deskAlignmentRepository.save(deskAlignment);
+      }
+    });
+    return "Desk Alignment Updated!";
+  }
+  
+  @DeleteMapping(path="/desk_alignment/delete") // Map ONLY DELETE Requests
+  public @ResponseBody String deleteDeskAlignment (
+      @RequestParam("id") Integer id
+    ) {
+    Iterable<DeskAlignment> deskAlignments = deskAlignmentRepository.findAll();
+    deskAlignments.forEach(deskAlignment -> {
+      if(deskAlignment.getDeskId().equals(id)){
+        deskAlignmentRepository.delete(deskAlignment);
+      }
+    });
+    return "Desk Alignment Deleted!";
+  }
+  
+
   
   @PostMapping(path="/order/add") // Map ONLY POST Requests
   public @ResponseBody String addNewOrder (
-      @RequestParam Double total, 
+      @RequestParam Float total, 
       @RequestParam Integer userId, 
       @RequestParam Integer deskId, 
       @RequestParam String status
