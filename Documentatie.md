@@ -24,5 +24,5 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
     * adaugarea/stergerea de camerea  
     * adaugarea/stergerea de birouri  
     
-## Diagrama Baza de date:
+## Diagrama Baza de Date:
 ![DiagramaBD](diagramaBD.png)
