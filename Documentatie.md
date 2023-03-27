@@ -5,7 +5,8 @@
 
 ## Functionalitati:  
 ### Utilizator Neingregistrat:
-    * vizualizarea spatiilor  
+    * vizualizarea spatiilor:  
+        ->  test
     * vizualizarea preturilor  
     * creare cont  
     * logare in cont  
