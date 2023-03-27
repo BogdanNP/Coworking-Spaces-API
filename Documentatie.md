@@ -5,8 +5,7 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
 
 ## Functionalitati:  
 ### Utilizator Neingregistrat:
-    * vizualizarea spatiilor:  
-        ->  test
+    * vizualizarea spatiilor
     * vizualizarea preturilor  
     * creare cont  
     * logare in cont  
