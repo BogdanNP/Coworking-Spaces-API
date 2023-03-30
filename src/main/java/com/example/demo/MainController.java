@@ -18,11 +18,11 @@ import com.example.demo.models.DeskRequest;
 import com.example.demo.models.Order;
 import com.example.demo.models.Room;
 import com.example.demo.models.UserP;
-import com.example.demo.repos.DeskRepository;
-import com.example.demo.repos.DeskRequestRepository;
-import com.example.demo.repos.OrderRepository;
-import com.example.demo.repos.RoomRepository;
-import com.example.demo.repos.UserPRepository;
+import com.example.demo.repositories.DeskRepository;
+import com.example.demo.repositories.DeskRequestRepository;
+import com.example.demo.repositories.OrderRepository;
+import com.example.demo.repositories.RoomRepository;
+import com.example.demo.repositories.UserPRepository;
 
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
