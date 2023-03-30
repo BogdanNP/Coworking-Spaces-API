@@ -19,7 +19,6 @@ import com.example.demo.models.DeskRequest;
 import com.example.demo.models.Order;
 import com.example.demo.models.Room;
 import com.example.demo.models.UserP;
-import com.example.demo.repos.DeskAlignmentRepository;
 import com.example.demo.repos.DeskRepository;
 import com.example.demo.repos.DeskRequestRepository;
 import com.example.demo.repos.OrderRepository;
@@ -45,9 +44,6 @@ public class MainController {
   @Autowired 
   private OrderRepository orderRepository;
   
-  @Autowired 
-  private DeskAlignmentRepository deskAlignmentRepository;
-
   @PostMapping(path="/user/add") // Map ONLY POST Requests
   public @ResponseBody String addNewUser (
       @RequestParam String username
@@ -287,62 +283,6 @@ public class MainController {
     return "Desk Request Deleted!";
   }
   
-  
-  @PostMapping(path="/desk_alignment/add") // Map ONLY POST Requests
-  public @ResponseBody String addDeskAlignment (
-      @RequestParam Integer positionX, 
-      @RequestParam Integer positionY, 
-      @RequestParam String orientation
-    ) {
-    // @ResponseBody means the returned String is the response, not a view name
-    // @RequestParam means it is a parameter from the GET or POST request
-
-    DeskAlignment deskAlignment = new DeskAlignment();
-    deskAlignment.setPositionX(positionX);
-    deskAlignment.setPositionY(positionY);
-    deskAlignment.setOrientation(orientation);
-    deskAlignmentRepository.save(deskAlignment);
-    return "DeskAlignment Saved";
-  }
-
-  @GetMapping(path="/desk_alignment/all")
-  public @ResponseBody Iterable<DeskAlignment> getAllDeskAlignments() {
-    // This returns a JSON or XML with the users
-   return deskAlignmentRepository.findAll();
-  }  
-
-  @PutMapping(path="/desk_alignment/update") // Map ONLY PUT Requests
-  public @ResponseBody String updateDeskAlignment (
-      @RequestParam Integer id,
-      @RequestParam(required = false) Integer positionX, 
-      @RequestParam(required = false) Integer positionY, 
-      @RequestParam(required = false) String orientation
-    ) {
-    Iterable<DeskAlignment> deskAlignments = deskAlignmentRepository.findAll();
-    deskAlignments.forEach(deskAlignment -> {
-      if(deskAlignment.getDeskId().equals(id)){
-        deskAlignmentRepository.delete(deskAlignment);
-        deskAlignment.setPositionX(positionX);
-        deskAlignment.setPositionX(positionY);
-        deskAlignment.setOrientation(orientation);
-        deskAlignmentRepository.save(deskAlignment);
-      }
-    });
-    return "Desk Alignment Updated!";
-  }
-  
-  @DeleteMapping(path="/desk_alignment/delete") // Map ONLY DELETE Requests
-  public @ResponseBody String deleteDeskAlignment (
-      @RequestParam("id") Integer id
-    ) {
-    Iterable<DeskAlignment> deskAlignments = deskAlignmentRepository.findAll();
-    deskAlignments.forEach(deskAlignment -> {
-      if(deskAlignment.getDeskId().equals(id)){
-        deskAlignmentRepository.delete(deskAlignment);
-      }
-    });
-    return "Desk Alignment Deleted!";
-  }
   
 
   
