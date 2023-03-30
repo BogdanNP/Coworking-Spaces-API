@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.models.Desk;
-import com.example.demo.models.DeskAlignment;
 import com.example.demo.models.DeskRequest;
 import com.example.demo.models.Order;
 import com.example.demo.models.Room;
