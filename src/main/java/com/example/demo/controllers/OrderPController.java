@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.models.Order;
+import com.example.demo.models.OrderP;
 
-import com.example.demo.repositories.OrderRepository;
+import com.example.demo.repositories.OrderPRepository;
 
 @Controller 
 @RequestMapping(path="/demo") 
-public class OrderController {
+public class OrderPController {
     
   @Autowired 
-  private OrderRepository orderRepository;
+  private OrderPRepository orderPRepository;
     
   @PostMapping(path="/order/add") 
   public @ResponseBody String addNewOrder (
@@ -28,18 +28,18 @@ public class OrderController {
       @RequestParam Integer deskId, 
       @RequestParam String status
     ) {
-    Order order = new Order();
+    OrderP order = new OrderP();
     order.setTotal(total);
     order.setUserId(userId);
     order.setDeskId(deskId);
     order.setStatus(status);
-    orderRepository.save(order);
+    orderPRepository.save(order);
     return "Order Saved";
   }
 
   @GetMapping(path="/order/all")
-  public @ResponseBody Iterable<Order> getAllOrders() {
-   return orderRepository.findAll();
+  public @ResponseBody Iterable<OrderP> getAllOrders() {
+   return orderPRepository.findAll();
   }  
 
   @PutMapping(path="/order/update")
@@ -50,14 +50,14 @@ public class OrderController {
       @RequestParam(required = false) Integer deskId, 
       @RequestParam(required = false) String status
     ) {
-    Iterable<Order> orders = orderRepository.findAll();
+    Iterable<OrderP> orders = orderPRepository.findAll();
     orders.forEach(order -> {
       if(order.getId().equals(id)){
         order.setTotal(total);
         order.setUserId(userId);
         order.setDeskId(deskId);
         order.setStatus(status);
-        orderRepository.save(order);
+        orderPRepository.save(order);
       }
     });
     return "Order Updated!";
@@ -67,10 +67,10 @@ public class OrderController {
   public @ResponseBody String deleteDeskRequest (
       @RequestParam("id") Integer id
     ) {
-    Iterable<Order> orders = orderRepository.findAll();
+    Iterable<OrderP> orders = orderPRepository.findAll();
     orders.forEach(order -> {
       if(order.getId().equals(id)){
-        orderRepository.delete(order);
+        orderPRepository.delete(order);
       }
     });
     return "Order Deleted!";
