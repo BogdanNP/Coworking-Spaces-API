@@ -18,9 +18,20 @@ import com.example.demo.repositories.DeskRepository;
 @RequestMapping(path="/demo") 
 public class DeskController {
 
-    @Autowired 
-    private DeskRepository deskRepository; 
+  @Autowired 
+  private DeskRepository deskRepository; 
 
+  /**
+  * Creates and new desk and saves it in the DB.
+  * Return a success message if the desk is saved.
+  * If the data is invalid then it should return an error message.
+  * @param width the width of the desk
+  * @param height the height of the desk
+  * @param length the length of the desk
+  * @param tariff the tariff of the desk for renting (price)
+  * @param tariffType the tariffType to set (ex. PRICE_PER_DAY, PRICE_PER_HOUR)
+  * @return String return the message
+  */
   @PostMapping(path="/desk/add") 
   public @ResponseBody String addNewDesk (
       @RequestParam Integer width, 
@@ -38,12 +49,29 @@ public class DeskController {
     deskRepository.save(desk);
     return "Saved";
   }
-
+  
+  /**
+  * Returns all the desks from the DB.
+  * If something is wrong then it should return an error message.
+  * @return Iterable<Desk> return the list of desks
+  */
   @GetMapping(path="/desk/all")
   public @ResponseBody Iterable<Desk> getAllDesks() {
    return deskRepository.findAll();
   }  
 
+    /**
+  * Creates and new desk and saves it in the DB.
+  * Return a success message if the desk is saved.
+  * If the data is invalid then it should return an error message.
+  * @param id the id of the desk
+  * @param width (optional) the width to update 
+  * @param height (optional) the height to update 
+  * @param length (optional) the length to update 
+  * @param tariff (optional) the tariff to update 
+  * @param tariffType (optional) the tariffType to update (ex. PRICE_PER_DAY, PRICE_PER_HOUR)
+  * @return String return the message
+  */
   @PutMapping(path="/desk/update")
   public @ResponseBody String updateDesk (
     @RequestParam(required = true) Integer id, 
