@@ -1,20 +1,16 @@
 package com.example.demo.handlers;
 
-
-import java.util.Iterator;
-
 import com.example.demo.models.DataResponse;
 import com.example.demo.models.Desk;
 import com.example.demo.repositories.DeskRepository;
 
 public class DeskHandler {
 
-    private DeskRepository deskRepository;
-    
+    private DataHandler<Desk> dataHandler;
     private static DeskHandler _instance;
 
     private DeskHandler(DeskRepository deskRepository){
-        this.deskRepository = deskRepository;
+        this.dataHandler = new DataHandler<Desk>(deskRepository);
     }
 
     /**
@@ -39,14 +35,13 @@ public class DeskHandler {
      * @return DataResponse
      */
     public DataResponse save(String body){
+        Desk desk;
         try{
-            deskRepository.save(Desk.fromJson(body));
+            desk = new Desk(body);
         }catch(Exception e){
-            DataResponse dataResponse = new DataResponse("Error", e.getMessage());
-            return dataResponse;
+            return new DataResponse(e);
         }
-        DataResponse dataResponse = new DataResponse("Success", "Desk created.");
-        return dataResponse;        
+        return dataHandler.save(desk);
     }
 
     /**
@@ -54,14 +49,7 @@ public class DeskHandler {
      * @return DataResponse, data = List of Desks,
      */
     public DataResponse findAll(){
-        try{
-            Iterable<Desk> desks =  deskRepository.findAll();
-            DataResponse dataResponse = new DataResponse("Success", desks);
-            return dataResponse;
-        }catch(Exception e){
-            DataResponse dataResponse = new DataResponse("Error", e.getMessage());
-            return dataResponse;
-        }
+        return dataHandler.findAll();
     }
 
     /**
@@ -75,30 +63,13 @@ public class DeskHandler {
      * @return DataResponse
      */
     public DataResponse update(String body){
+        Desk desk;
         try{
-
-            //TODO: update this method in order to keep the same id;
-
-            Desk deskToUpdate = Desk.fromJson(body);
-            Iterable<Desk> desks =  deskRepository.findAll();
-            boolean found = false;
-            Iterator<Desk> it = desks.iterator();
-            while(it.hasNext()){
-                Desk desk = it.next();
-                if(desk.getId().equals(deskToUpdate.getId())){
-                    found = true;
-                    deskRepository.delete(desk);
-                    desk.updateFrom(deskToUpdate);
-                    deskRepository.save(desk);
-                }
-            }
-            if(found){
-                return new DataResponse("Success", "Desk updated.");
-            }
-            return new DataResponse("Error", "Desk with id = " + deskToUpdate.getId() +" was not found.");
+            desk = new Desk(body);
         }catch(Exception e){
-            return new DataResponse("Error", e.getMessage());
+            return new DataResponse(e);
         }
+        return dataHandler.update(desk);
     }
 
     /**
@@ -111,23 +82,6 @@ public class DeskHandler {
      * @return DataResponse
      */
     public DataResponse delete(Integer id){
-        try{
-            Iterable<Desk> desks = deskRepository.findAll();
-            boolean found = false;
-            Iterator<Desk> it = desks.iterator();
-            while(it.hasNext()){
-                Desk desk = it.next();
-                if(desk.getId().equals(id)){
-                    found = true;
-                    deskRepository.delete(desk);
-                }
-            }
-            if(found){
-                return new DataResponse("Suuccess", "Desk deleted.");
-            }
-            return new DataResponse("Error", "Desk with id = " + id +" was not found.");
-        } catch (Exception e){
-            return new DataResponse("Error", e.getMessage());
-        }
+        return dataHandler.delete(id);
     }
 }
