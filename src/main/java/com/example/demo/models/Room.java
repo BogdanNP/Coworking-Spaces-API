@@ -29,6 +29,8 @@ public class Room extends DataModel{
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map = mapper.readValue(json, Map.class);
         setDetails((String)map.get("details"));
+        //TODO: check DB logic
+        //Maybe a desk should know the room id, and the room should not know all the desks
         setDeskList((List)map.get("desk_list"));
         setWidth((Integer)map.get("width"));
         setLength((Integer)map.get("length"));
