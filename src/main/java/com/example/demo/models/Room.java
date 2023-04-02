@@ -1,6 +1,11 @@
 package com.example.demo.models;
 
 import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Room {
+public class Room extends DataModel{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
@@ -17,6 +22,34 @@ public class Room {
     private List<Integer> deskList;
     private String details;
 
+    public Room(){}
+
+    public Room(String json) throws JsonMappingException, JsonProcessingException {
+		super(json);
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> map = mapper.readValue(json, Map.class);
+        setDetails((String)map.get("details"));
+        setDeskList((List)map.get("desk_list"));
+        setWidth((Integer)map.get("width"));
+        setLength((Integer)map.get("length"));
+    }
+    
+    @Override
+    public void updateFrom(DataModel dataModel){
+        Room source = (Room) dataModel;
+        if(source.getDetails() != null){
+            setDetails(source.getDetails());
+        }
+        if(source.getDeskList() != null){
+            setDeskList(source.getDeskList());
+        }
+        if(source.getWidth() != null){
+            setWidth(source.getWidth());
+        }
+        if(source.getLength() != null){
+            setLength(source.getLength());
+        }
+    }
     /**
      * @return Integer return the id
      */

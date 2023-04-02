@@ -12,7 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Desk {
+public class Desk extends DataModel{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
@@ -22,6 +22,8 @@ public class Desk {
     private Double tariff;
     private String tariffType;
 
+    public Desk(){}
+
     /**
      * Creates a Desk object from a JSON String.
      * @param json 
@@ -29,24 +31,24 @@ public class Desk {
      * @throws JsonMappingException
      * @throws JsonProcessingException
      */
-    public static Desk fromJson(String json) throws JsonMappingException, JsonProcessingException{
-        Desk desk = new Desk();
+    public Desk (String json) throws JsonMappingException, JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map = mapper.readValue(json, Map.class);
-        desk.setId((Integer)map.get("id"));
-        desk.setWidth((Integer)map.get("width"));
-        desk.setHeight((Integer)map.get("height"));
-        desk.setLength((Integer)map.get("length"));
-        desk.setTariff((Double)map.get("tariff"));
-        desk.setTariffType((String)map.get("tariff_type"));
-        return desk;
+        setId((Integer)map.get("id"));
+        setWidth((Integer)map.get("width"));
+        setHeight((Integer)map.get("height"));
+        setLength((Integer)map.get("length"));
+        setTariff((Double)map.get("tariff"));
+        setTariffType((String)map.get("tariff_type"));
     } 
 
     /**
      * Copies all the data from one source desk to the current object
      * @param source
      */
-    public void updateFrom(Desk source){
+    @Override
+    public void updateFrom(DataModel dataModel){
+        Desk source = (Desk) dataModel;
         if(source.getWidth() != null){
             setWidth(source.getWidth());
         }

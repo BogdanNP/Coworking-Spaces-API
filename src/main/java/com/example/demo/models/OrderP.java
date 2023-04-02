@@ -1,21 +1,56 @@
 package com.example.demo.models;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class OrderP {
-    @Id
+public class OrderP extends DataModel{
+	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private Float total;
     private Integer userId;
     private Integer deskId;
     private String status;
-
     
+      
+    public OrderP() {}
+
+    public OrderP(String json) throws JsonMappingException, JsonProcessingException {
+		super(json);
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> map = mapper.readValue(json, Map.class);
+        setId((Integer)map.get("id"));
+        setStatus((String)map.get("status"));
+        setUserId((Integer)map.get("user_id"));
+        setDeskId((Integer)map.get("desk_id"));
+        setTotal((Float)map.get("total"));
+    }
+    
+    @Override
+    public void updateFrom(DataModel dataModel){
+        OrderP source = (OrderP) dataModel;
+        if(source.getStatus() != null){
+            setStatus(source.getStatus());
+        }
+        if(source.getUserId() != null){
+            setUserId(source.getUserId());
+        }
+        if(source.getDeskId() != null){
+            setDeskId(source.getDeskId());
+        }
+        if(source.getTotal() != null){
+            setTotal(source.getTotal());
+        }
+    }
 
     /**
      * @return Integer return the id
@@ -87,4 +122,5 @@ public class OrderP {
         this.status = status;
     }
 
+   
 }

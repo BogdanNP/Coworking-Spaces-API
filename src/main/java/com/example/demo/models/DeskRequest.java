@@ -1,6 +1,12 @@
 package com.example.demo.models;
 
 import java.util.Date;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +15,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public
-class DeskRequest{
+class DeskRequest extends DataModel{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
@@ -19,7 +25,48 @@ class DeskRequest{
     private Date startDate;
     private Date endDate;
 
-    
+    public DeskRequest(){}
+    /**
+     * Creates a DeskRequest object from a JSON String.
+     * @param json 
+     * @return DeskRequest
+     * @throws JsonMappingException
+     * @throws JsonProcessingException
+     */
+    public DeskRequest(String json) throws JsonMappingException, JsonProcessingException{
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> map = mapper.readValue(json, Map.class);
+        setId((Integer)map.get("id"));
+        setStatus((String)map.get("status"));
+        setUserId((Integer)map.get("user_id"));
+        setDeskId((Integer)map.get("desk_id"));
+        setStartDate((Date)map.get("start_date"));
+        setEndDate((Date)map.get("end_date"));
+    } 
+
+    /**
+     * Copies all the data from one source desk to the current object
+     * @param source
+     */
+    @Override
+    public void updateFrom(DataModel dataModel){
+        DeskRequest source = (DeskRequest) dataModel;
+        if(source.getStatus() != null){
+            setStatus(source.getStatus());
+        }
+        if(source.getUserId() != null){
+            setUserId(source.getUserId());
+        }
+        if(source.getDeskId() != null){
+            setDeskId(source.getDeskId());
+        }
+        if(source.getStartDate() != null){
+            setStartDate(source.getStartDate());
+        } 
+        if(source.getEndDate() != null){
+            setEndDate(source.getEndDate());
+        }
+    }    
 
     /**
      * @return Integer return the id

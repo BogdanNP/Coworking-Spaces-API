@@ -22,6 +22,11 @@ public class DataResponse {
         this.data = data;
     }
 
+    public DataResponse(Exception e){
+        this.status = "Error";
+        this.message = e.getMessage();
+    }
+
     /**
      * @return String return the status
      */
