@@ -27,7 +27,6 @@ public class Desk extends DataModel{
     /**
      * Creates a Desk object from a JSON String.
      * @param json 
-     * @return Desk
      * @throws JsonMappingException
      * @throws JsonProcessingException
      */
@@ -43,7 +42,7 @@ public class Desk extends DataModel{
     } 
 
     /**
-     * Copies all the data from one source desk to the current object
+     * Copies all the data from one source desk to the current object.
      * @param source
      */
     @Override

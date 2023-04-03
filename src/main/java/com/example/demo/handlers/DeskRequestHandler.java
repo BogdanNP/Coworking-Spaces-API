@@ -13,6 +13,11 @@ public class DeskRequestHandler {
         this.dataHandler = new DataHandler<DeskRequest>(deskRequestRepository);
     }
 
+    /**
+     * Returns a single instance of the class, which can handle all the logic.
+     * @param deskRequestRepository
+     * @return DeskRequestHandler (_instance)
+     */
     public static DeskRequestHandler instance(DeskRequestRepository deskRequestRepository){
         if(_instance == null){
             _instance = new DeskRequestHandler(deskRequestRepository);
@@ -20,6 +25,11 @@ public class DeskRequestHandler {
         return _instance;
     }
 
+      /**
+     * Creates a desk request from a JSON String and saves the DeskRequest object in the DB.
+     * @param body
+     * @return DataResponse
+     */
     public DataResponse save(String body){
         DeskRequest deskRequest;
         try{
@@ -30,10 +40,19 @@ public class DeskRequestHandler {
         return dataHandler.save(deskRequest);      
     }
 
+    /**
+     * Returns all the desk requests.
+     * @return DataResponse
+     */
     public DataResponse findAll(){
         return dataHandler.findAll();
     }
 
+    /**
+     * Creates a DeskRequest from a JSON String and updates the DeskRequest object in the DB.
+     * @param body
+     * @return DataResponse
+     */
     public DataResponse update(String body){
         DeskRequest deskRequest;
         try{
@@ -44,6 +63,11 @@ public class DeskRequestHandler {
         return dataHandler.update(deskRequest);      
     }
 
+    /**
+     * Deletes a DeskRequest object from the DB.
+     * @param id the id of the desk request wich will be deleted
+     * @return DataResponse
+     */
     public DataResponse delete(Integer id){
         return dataHandler.delete(id);
     }

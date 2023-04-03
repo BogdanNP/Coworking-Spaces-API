@@ -1,5 +1,8 @@
 package com.example.demo.models;
 
+/**
+ * Class used for all responses.
+ */
 public class DataResponse {
     private String status;
     private String message;

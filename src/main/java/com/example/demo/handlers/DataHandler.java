@@ -15,6 +15,11 @@ public class DataHandler<T extends DataModel> {
         this.repository = repository;
     }
     
+    /**
+     * Saves the T object in the DB.
+     * @param dataModel
+     * @return DataResponse (status: Success or Error)
+     */
     public DataResponse save(T dataModel){
         try{
             repository.save(dataModel);
@@ -25,7 +30,11 @@ public class DataHandler<T extends DataModel> {
         DataResponse dataResponse = new DataResponse("Success", "Created.");
         return dataResponse;        
     }
-
+    
+      /**
+     * Returns all the T objects from the DB.
+     * @return DataResponse (status: Success or Error)
+     */
     public DataResponse findAll(){
         try{
             Iterable<T> dataModels = repository.findAll();
@@ -37,6 +46,12 @@ public class DataHandler<T extends DataModel> {
         }
     }
 
+     /**
+     * Checks all the T objects from the DB, if an object with the requested id is found
+     * then the T object is updated in the DB.
+     * @param dataModelToUpdate
+     * @return DataResponse (status: Success or Error)
+     */
     public DataResponse update(T dataModelToUpdate){
         try{
 
@@ -63,7 +78,12 @@ public class DataHandler<T extends DataModel> {
         }
     }
 
-    
+     /**
+     * Checks all the T objects from the DB, if the object with the requested id is found
+     * then the object is deleted from the DB.
+     * @param id the id of the object wich will be deleted
+     * @return DataResponse
+     */
     public DataResponse delete(Integer id){
         try{
             Iterable<T> dataModels = repository.findAll();

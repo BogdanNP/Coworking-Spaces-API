@@ -14,8 +14,7 @@ public class DeskHandler {
     }
 
     /**
-     * Returns a single instance of the class, which can handle
-     * all the logic.
+     * Returns a single instance of the class, which can handle all the logic.
      * @param deskRepository
      * @return DeskHandler (_instance)
      */
@@ -27,10 +26,7 @@ public class DeskHandler {
     }
 
     /**
-     * Creates a desk from a JSON. 
-     * Saves the Desk object in the DB.
-     * Creates and returns DataResponse object with specific
-     * status and message.
+     * Creates a desk from a JSON String and saves the Desk object in the DB.
      * @param body
      * @return DataResponse
      */
@@ -46,19 +42,14 @@ public class DeskHandler {
 
     /**
      * Returns all the desks.
-     * @return DataResponse, data = List of Desks,
+     * @return DataResponse
      */
     public DataResponse findAll(){
         return dataHandler.findAll();
     }
 
     /**
-     * Creates a desk from a JSON. 
-     * Checks all the desks from the DB.
-     * If a desk with the requested id is found
-     * then the Desk object is updated in the DB.
-     * Creates and returns DataResponse object with specific
-     * status and message.
+     * Creates a Desk from a JSON String and updates the Desk object in the DB.
      * @param body
      * @return DataResponse
      */
@@ -73,11 +64,7 @@ public class DeskHandler {
     }
 
     /**
-     * Checks all the desks from the DB.
-     * If a desk with the requested id is found
-     * then the Desk object is deleted from the DB.
-     * Creates and returns DataResponse object with specific
-     * status and message.
+     * Deletes a Desk object from the DB.
      * @param id the id of the desk wich will be deleted
      * @return DataResponse
      */

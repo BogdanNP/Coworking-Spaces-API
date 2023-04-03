@@ -29,7 +29,6 @@ class DeskRequest extends DataModel{
     /**
      * Creates a DeskRequest object from a JSON String.
      * @param json 
-     * @return DeskRequest
      * @throws JsonMappingException
      * @throws JsonProcessingException
      */
@@ -45,7 +44,7 @@ class DeskRequest extends DataModel{
     } 
 
     /**
-     * Copies all the data from one source desk to the current object
+     * Copies all the data from one source desk to the current object.
      * @param source
      */
     @Override

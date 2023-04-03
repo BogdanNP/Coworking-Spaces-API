@@ -24,6 +24,12 @@ public class OrderP extends DataModel{
       
     public OrderP() {}
 
+    /**
+     * Creates an OrderP object from a JSON String.
+     * @param json 
+     * @throws JsonMappingException
+     * @throws JsonProcessingException
+     */
     public OrderP(String json) throws JsonMappingException, JsonProcessingException {
 		super(json);
         ObjectMapper mapper = new ObjectMapper();
@@ -35,6 +41,10 @@ public class OrderP extends DataModel{
         setTotal((Float)map.get("total"));
     }
     
+    /**
+     * Copies all the data from one source order to the current object.
+     * @param source
+     */
     @Override
     public void updateFrom(DataModel dataModel){
         OrderP source = (OrderP) dataModel;

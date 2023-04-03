@@ -27,21 +27,53 @@ public class OrderPController {
     return OrderPHandler.instance(orderPRepository);
   }
   
+  /**
+   * Creates a new order and saves it in the DB.
+   * @param body String -> order object in json format
+   * @apiNote order object contains the following:
+   * @apiNote id (REQUIRED) -> the id of the order
+   * @apiNote total -> the total price of the order
+   * @apiNote userId -> the userId 
+   * @apiNote deskId -> the deskId of the order
+   * @apiNote status -> the status of the order (PAID, PENDING, ...)
+   * @return DataResponse (status, message).
+   */
   @PostMapping(path="/order/add") 
   public @ResponseBody DataResponse addNewOrder (@RequestBody String body) {
     return orderPHandler().save(body);
   }
 
+  /**
+  * Returns all the orders from the DB.
+  * @return DataResponse (status, message, list of orders)
+  */
   @GetMapping(path="/order/all")
   public @ResponseBody DataResponse getAllOrders() {
    return orderPHandler().findAll();
-  }  
+  }
 
+  
+  /**
+  * Updates an existing order from DB.
+  * @param body String -> order object in json format
+  * @apiNote order object contains the following:
+  * @apiNote id (REQUIRED) -> the id of the order
+  * @apiNote total -> the total price of the order
+  * @apiNote userId -> the userId 
+  * @apiNote deskId -> the deskId of the order
+  * @apiNote status -> the status of the order (PAID, PENDING, ...)
+  * @return DataResponse (status, message).
+  */
   @PutMapping(path="/order/update")
   public @ResponseBody DataResponse updateDeskRequest (@RequestBody String body){
     return orderPHandler().update(body);
   }
   
+  /**
+  * Deletes an order from DB.
+  * @param id String -> order id 
+  * @return DataResponse (status, message).
+  */
   @DeleteMapping(path="/order/delete")
   public @ResponseBody DataResponse deleteDeskRequest (@RequestParam("id") Integer id) {
     return orderPHandler().delete(id);

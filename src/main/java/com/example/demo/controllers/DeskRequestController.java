@@ -26,22 +26,53 @@ public class DeskRequestController {
   private DeskRequestHandler deskRequestHandler(){
     return DeskRequestHandler.instance(deskRequestRepository);
   }
-  
+
+  /**
+   * Creates a new desk request and saves it in the DB.
+   * @param body String -> desk request object in json format
+   * @apiNote desk request object contains the following:
+   * @apiNote startDate -> the end date of the desk request
+   * @apiNote endDate -> the end date of the desk request
+   * @apiNote userId -> the userId 
+   * @apiNote deskId -> the deskId of the desk request
+   * @apiNote status -> the status of the desk (RESERED, CANCELLED)
+   */
   @PostMapping(path="/desk_request/add")
   public @ResponseBody DataResponse addNewDeskRequest (@RequestBody String body) {
     return deskRequestHandler().save(body);
   }
 
+  /**
+  * Returns all the desk requests from the DB.
+  * @return DataResponse (status, message, list of orders)
+  */
   @GetMapping(path="/desk_request/all")
   public @ResponseBody DataResponse getAllDeskRequests() {
    return deskRequestHandler().findAll();
   }
-  
+
+   /**
+  * Updates an existing desk request from DB.
+  * @param body String -> desk request object in json format
+  * @apiNote desk request object contains the following:
+  * @apiNote id (REQUIRED) -> the id of the desk request
+  * @apiNote startDate -> the end date of the desk request
+  * @apiNote endDate -> the end date of the desk request
+  * @apiNote userId -> the userId 
+  * @apiNote deskId -> the deskId of the desk request
+  * @apiNote status -> the status of the desk (RESERED, CANCELLED)
+  * @return DataResponse (status, message).
+  */
   @PutMapping(path="/desk_request/update")
   public @ResponseBody DataResponse updateDeskRequest (@RequestBody String body) {
     return deskRequestHandler().update(body);
   }
-  
+
+  /**
+  * Deletes a desk request from DB.
+  * @param id String -> order id 
+  * @return DataResponse (status, message).
+  */
   @DeleteMapping(path="/desk_request/delete")
   public @ResponseBody DataResponse deleteDeskRequest (@RequestParam("id") Integer id) {
     return deskRequestHandler().delete(id);

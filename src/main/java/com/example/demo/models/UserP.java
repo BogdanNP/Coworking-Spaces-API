@@ -23,6 +23,12 @@ public class UserP extends DataModel{
 
   public UserP(){}
 
+  /**
+  * Creates a UserP object from a JSON String.
+  * @param json 
+  * @throws JsonMappingException
+  * @throws JsonProcessingException
+  */
   public UserP(String json) throws JsonMappingException, JsonProcessingException {
   super(json);
       ObjectMapper mapper = new ObjectMapper();
@@ -32,6 +38,10 @@ public class UserP extends DataModel{
       setType((String)map.get("type"));
   }
   
+  /**
+  * Copies all the data from one source user to the current object.
+  * @param source
+  */
   @Override
   public void updateFrom(DataModel dataModel){
     UserP source = (UserP) dataModel;

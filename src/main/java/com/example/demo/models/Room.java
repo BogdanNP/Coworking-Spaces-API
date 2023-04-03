@@ -24,6 +24,12 @@ public class Room extends DataModel{
 
     public Room(){}
 
+    /**
+     * Creates a Room object from a JSON String.
+     * @param json 
+     * @throws JsonMappingException
+     * @throws JsonProcessingException
+     */
     public Room(String json) throws JsonMappingException, JsonProcessingException {
 		super(json);
         ObjectMapper mapper = new ObjectMapper();
@@ -36,6 +42,10 @@ public class Room extends DataModel{
         setLength((Integer)map.get("length"));
     }
     
+    /**
+     * Copies all the data from one source room to the current object.
+     * @param source
+     */
     @Override
     public void updateFrom(DataModel dataModel){
         Room source = (Room) dataModel;

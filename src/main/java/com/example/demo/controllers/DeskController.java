@@ -23,15 +23,14 @@ public class DeskController {
   private DeskRepository deskRepository; 
 
   /**
-   * @return DeskHandler -> the object which handles the logic between
-   * the api and the database.
+   * @return DeskHandler -> the object which handles the logic between the api and the database.
    */
   private DeskHandler deskHandler(){
     return DeskHandler.instance(this.deskRepository);
   }
 
   /**
-  * Creates and new desk and saves it in the DB.
+  * Creates a new desk and saves it in the DB.
   * @param body String -> desk object in json format
   * @apiNote desk object contains the following:
   * @apiNote width -> the width of the desk
@@ -55,7 +54,7 @@ public class DeskController {
    return deskHandler().findAll();
   }  
 
-    /**
+  /**
   * Updates an existing desk from DB.
   * @param body String -> desk object in json format
   * @apiNote desk object contains the following:
