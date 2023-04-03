@@ -29,8 +29,8 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
 
 ## Endpoint-uri:  
 Adresa: localhost:8080/demo  
+***Toate requesturile trimit un raspuns de forma:**  
 ```
-**Toate requesturile trimit un raspuns de forma:**  
 {
     "status": "Error" / "Success",
     "message" "Some message" / null,
