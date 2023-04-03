@@ -26,3 +26,11 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
     
 ## Diagrama Baza de Date:
 ![DiagramaBD](diagramaBD.png)
+
+## Endpoint-uri:  
+Adresa: localhost:8080/demo
+### /user:  
+    * GET /all -> returneaza o lista cu toti utilizatorii  
+    * POST /add -> adauga un user  
+                -> body: {"username", "password", "type"}  
+    
