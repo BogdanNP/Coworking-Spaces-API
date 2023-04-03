@@ -30,10 +30,12 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
 ## Endpoint-uri:  
 Adresa: localhost:8080/demo
 ### /user:  
-    * GET /all      -> returneaza o lista cu toti utilizatorii  
-    * POST /add      -> adauga un user  
-                     -> body: {"username",    "password", "type"}  
-                     -> returneaza un mesaj de succes/ eroare  
-    * PUT /update    ->
-    * DELETE /delete ->
+    * GET /all -> returneaza o lista cu toti utilizatorii  
+    * POST /add -> adauga un user  
+                -> body: {"username",    "password", "type"}  
+                -> returneaza un mesaj de succes/ eroare  
+    * PUT /update -> modifica un user
+                  -> body: {"id"(REQUIRED), "username",    "password", "type"}  
+    * DELETE /delete -> sterge un user
+                     -> 
     
