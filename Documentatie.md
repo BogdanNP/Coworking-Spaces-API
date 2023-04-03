@@ -32,7 +32,7 @@ Adresa: localhost:8080/demo
 *Toate requesturile trimit un raspuns de forma:
 ```  
 {
-    "status": "Error"/"Success",
+    "status": "Error" / "Success",
     "message" "Some message" / null,
     "data": JSON Object / null
 }
@@ -53,3 +53,30 @@ Adresa: localhost:8080/demo
                   -> body: {"id"(REQUIRED), "width", "length", "height", "tariff", "tariff_type"}  
     * DELETE /delete -> sterge un user
                      -> param: $id  
+
+### /room
+    * GET /all -> returneaza o lista cu toate camerele  
+    * POST /add -> adauga o camera  
+                -> body: {"width", "length", "desk_list", "details"}    
+    * PUT /update -> modifica o camera
+                  -> body: {"id"(REQUIRED), "width", "length", "desk_list", "details"}  
+    * DELETE /delete -> sterge o camera
+                     -> param: $id  
+
+### /desk_request
+    * GET /all -> returneaza o lista cu toate rezervarile create  
+    * POST /add -> adauga o noua rezervare  
+                -> body: {"status", "user_id", "desk_id", "start_date", "end_date"}    
+    * PUT /update -> modifica o rezervare
+                  -> body: {"id"(REQUIRED), "status", "user_id", "desk_id", "start_date", "end_date"}  
+    * DELETE /delete -> sterge o rezervare
+                     -> param: $id 
+
+### /order
+    * GET /all -> returneaza o lista cu toate comenzile  
+    * POST /add -> adauga o comanda  
+                -> body: {"total", "user_id", "desk_id", "status"}    
+    * PUT /update -> modifica o comanda
+                  -> body: {"id"(REQUIRED), "total", "user_id", "desk_id", "status"}  
+    * DELETE /delete -> sterge o comanda
+                     -> param: $id 
