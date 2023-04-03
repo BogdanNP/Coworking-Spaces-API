@@ -30,11 +30,13 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
 ## Endpoint-uri:  
 Adresa: localhost:8080/demo
 *Toate requesturile trimit un raspuns de forma:
-```  {
-        "status": "Error"/"Success",
-        "message" "Some message" / null,
-        "data": JSON Object / null
-    }```
+```  
+{
+    "status": "Error"/"Success",
+    "message" "Some message" / null,
+    "data": JSON Object / null
+}
+```
 ### /user:  
     * GET /all -> returneaza o lista cu toti utilizatorii  
     * POST /add -> adauga un user  
