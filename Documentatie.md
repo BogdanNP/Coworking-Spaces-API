@@ -28,7 +28,7 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
 ![DiagramaBD](diagramaBD.png)
 
 ## Endpoint-uri:  
-Adresa: localhost:8080/demo  
+***Adresa: localhost:8080/demo***  
 ***Toate requesturile trimit un raspuns de forma:**  
 ```
 {
