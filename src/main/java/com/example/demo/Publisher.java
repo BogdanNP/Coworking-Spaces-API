@@ -1,21 +1,30 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Publisher {
     private List<Subscriber> subscribers;
 
-    void addSubscriber(Subscriber subscriber){
+    public Publisher(){
+        this.subscribers = new ArrayList<Subscriber>();
+    }
+
+    public void addSubscriber(Subscriber subscriber){
         subscribers.add(subscriber);
     }
 
-    void removeSubscriber(Subscriber subscriber){
+    public void removeSubscriber(Subscriber subscriber){
         subscribers.remove(subscriber);
     }
 
-    void notifySubscribers(){
+    public void notifySubscribers(Object value){
         subscribers.forEach(subscriber->{
-            subscriber.update();
+            subscriber.update(value);
         });
+    }
+
+    public List<Subscriber> getSubscribers(){
+        return this.subscribers;
     }
 }

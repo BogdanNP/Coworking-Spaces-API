@@ -9,6 +9,8 @@
 24 Aprilie -> Tema 3  
 1 Mai -> Restanta Teama 3  
 
+Start springboot app:
+ .\gradlew.bat bootRun
 
 Pentru documentatie: https://dillinger.io/  
 Pentru diagrame: https://www.planttext.com/  

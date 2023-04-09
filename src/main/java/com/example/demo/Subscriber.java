@@ -1,5 +1,5 @@
 package com.example.demo;
 
 public interface Subscriber {
-    abstract void update();
+    abstract void update(Object value);
 }
