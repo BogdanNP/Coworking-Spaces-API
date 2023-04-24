@@ -18,12 +18,15 @@ public class DemoApplication {
       CalculDobanda calculDobanda = new CalculDobanda();
       System.out.println("Dobanda = " + calculDobanda.dobanda(TipDobanda.MICA));
 
-      OpBDMock opBD = new OpBDMock();
+      OpBD opBD = new OpBDMock();
       User user = opBD.getUser("TEST USER");
 
       System.out.println("User Risk: " + user.getRisk());
       System.out.println("User Dobanda: " + calculDobanda.dobanda(user));
       // SpringApplication.run(DemoApplication.class, args);
+
+      CalculDobanda calculDobanda2 = new CalculDobanda(opBD);
+      System.out.println("User Dobanda2: " + calculDobanda2.calculDobandaDB());
     }
     @GetMapping("/hello")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {

@@ -2,6 +2,10 @@ package com.example.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -15,7 +19,7 @@ import com.example.demo.lab7.RiskProfile;
 import com.example.demo.lab7.TipDobanda;
 import com.example.demo.lab7.User;
 
-@SpringBootTest
+// @SpringBootTest
 class DemoApplicationTests {
 
 	@Mock
@@ -23,13 +27,42 @@ class DemoApplicationTests {
 
 	@Test 
 	void testF(){
+		// init mocks
+		MockitoAnnotations.openMocks(this);
 		User user = new User();
 		user.setName("TEST USER");
-		user.setRisk(RiskProfile.HIGH);
+		user.setRisk(RiskProfile.LOW);
 		when(opBD.getUser("TEST USER")).thenReturn(user);
 		CalculDobanda calculDobanda = new CalculDobanda();
 
-		assertEquals(0.1, calculDobanda.dobanda(opBD.getUser("TEST USER")));
+		assertEquals(0.7, calculDobanda.dobanda(opBD.getUser("TEST USER")));
+	}
+
+	@Test 
+	void testF2(){
+		// init mocks
+		MockitoAnnotations.openMocks(this);
+		User user = new User();
+		user.setName("TEST USER");
+		user.setRisk(RiskProfile.MEDIUM);
+		when(opBD.getUser("TEST USER")).thenReturn(user);
+		CalculDobanda calculDobanda2 = new CalculDobanda(opBD);
+
+		assertEquals(0.3, calculDobanda2.calculDobandaDB());
+	}
+
+	@Test 
+	void testF3(){
+		// init mocks
+		MockitoAnnotations.openMocks(this);
+		User user = new User();
+		user.setName("TEST USER 3");
+		user.setRisk(RiskProfile.HIGH);
+		when(opBD.getUser()).thenReturn(user);
+		CalculDobanda calculDobanda2 = new CalculDobanda(opBD);
+
+		assertEquals(0.1, calculDobanda2.calculDobandaDB2());
+		verify(opBD, times(1));
 	}
 
 	@Test

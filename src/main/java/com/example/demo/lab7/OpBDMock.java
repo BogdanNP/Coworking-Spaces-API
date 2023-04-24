@@ -10,4 +10,11 @@ public class OpBDMock implements OpBD {
         return user;
     }
     
+    @Override 
+    public User getUser(){
+        User user = new User();
+        user.setName("John");
+        user.setRisk(RiskProfile.HIGH);
+        return user;
+    }
 }
