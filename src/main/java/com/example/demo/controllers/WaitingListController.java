@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.models.DataResponse;
 import com.example.demo.handlers.WaitingListHandler;
+import com.example.demo.models.DataResponse;
 
 @Controller
 @RequestMapping(path="/demo")
@@ -19,7 +19,7 @@ public class WaitingListController {
     }
     
     @PostMapping(path="/waiting_list/add")
-    public @ResponseBody String addPersonToList (@RequestBody String body){
+    public @ResponseBody DataResponse addPersonToList (@RequestBody String body){
         return waitingListHandler().add(body);
     }
 

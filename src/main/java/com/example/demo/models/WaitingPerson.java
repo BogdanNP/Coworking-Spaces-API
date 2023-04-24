@@ -1,35 +1,68 @@
 package com.example.demo.models;
 
-import com.example.demo.Subscriber;
+import java.util.Map;
 
-public class WaitingPerson implements Subscriber{
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-    private String id;
-    private boolean canUseDesk;
+import com.example.demo.WaitingListSubscriber;
 
-    public WaitingPerson(String id){
-        this.id = id;
-        this.canUseDesk = false;
+public class WaitingPerson implements WaitingListSubscriber{
+
+    private Integer userId;
+    private Integer deskId;
+    private boolean deskAvailable;
+
+    public WaitingPerson(String json) throws JsonMappingException, JsonProcessingException{
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> map = mapper.readValue(json, Map.class);
+        setUserId((Integer) map.get("user_id"));
+        setDeskId((Integer) map.get("desk_id"));
+        setDeskAvailable(false);
     }
 
-    public String getId(){
-        return id;
-    }
-
-    public boolean getCanUseDesk(){
-        return canUseDesk;
-    }
-
+ 
     @Override
-    public void update(Object value) {
-        boolean status = (boolean) value;   
-        this.canUseDesk = status;
-        System.out.println(id + ": update was called");
-        if(canUseDesk){
-            System.out.println("user can use the desk");
-        } else {
-            System.out.println("user can't use the desk");
-        }
+    public void update(boolean status) {
+        this.setDeskAvailable(status);
     }
     
+    public Integer getUserId(){
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getDeskId(){
+        return deskId;
+    }
+
+
+    /**
+     * @param deskId the deskId to set
+     */
+    public void setDeskId(Integer deskId) {
+        this.deskId = deskId;
+    }
+
+    /**
+     * @return boolean return the canUseDesk
+     */
+    public boolean isDeskAvailable() {
+        return deskAvailable;
+    }
+
+    /**
+     * @param canUseDesk the canUseDesk to set
+     */
+    public void setDeskAvailable(boolean canUseDesk) {
+        this.deskAvailable = canUseDesk;
+    }
+
 }

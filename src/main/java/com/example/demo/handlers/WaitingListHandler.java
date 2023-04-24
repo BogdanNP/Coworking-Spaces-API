@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.example.demo.Publisher;
-import com.example.demo.Subscriber;
+import com.example.demo.WaitingListPublisher;
+import com.example.demo.WaitingListSubscriber;
 import com.example.demo.models.DataModel;
+import com.example.demo.models.DataResponse;
 import com.example.demo.models.WaitingPerson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
-public class WaitingListHandler extends Publisher{
+public class WaitingListHandler extends WaitingListPublisher{
     private static WaitingListHandler _instance;
     private WaitingListHandler(){
         super();
@@ -29,11 +32,16 @@ public class WaitingListHandler extends Publisher{
         return _instance;
     }
 
-    public String add(String body){
+    public DataResponse add(String body){
 
-        WaitingPerson waitingPerson = new WaitingPerson(body);
+        WaitingPerson waitingPerson;
+        try {
+            waitingPerson = new WaitingPerson(body);
+        } catch (Exception e) {
+            return new DataResponse(e);
+        } 
         this.addSubscriber(waitingPerson);
-        return "";
+        return new DataResponse("Success", "You were added on the waiting list");
     }
     
     public boolean deskStatus = false;
@@ -49,12 +57,12 @@ public class WaitingListHandler extends Publisher{
     }
 
     public String checkPersons(){
-        List<Subscriber> subscribers = this.getSubscribers();
+        List<WaitingListSubscriber> subscribers = this.getSubscribers();
         String result = "Can use the desk:\n";
-        Iterator<Subscriber> it = subscribers.iterator();
+        Iterator<WaitingListSubscriber> it = subscribers.iterator();
         while(it.hasNext()){
             WaitingPerson waitingPerson = (WaitingPerson) it.next();
-            result += "person " + waitingPerson.getId() + " : " + waitingPerson.getCanUseDesk() + "\n"; 
+            result += "person " + waitingPerson.getUserId() + " : " + waitingPerson.getCanUseDesk() + "\n"; 
         }
         return result;
     }
