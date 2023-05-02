@@ -6,16 +6,37 @@ import java.util.List;
 
 import com.example.demo.WaitingListPublisher;
 import com.example.demo.WaitingListSubscriber;
-import com.example.demo.models.DataModel;
 import com.example.demo.models.DataResponse;
 import com.example.demo.models.WaitingPerson;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class WaitingListHandler extends WaitingListPublisher{
     private static WaitingListHandler _instance;
+    private List<WaitingListSubscriber> subscribers;
+
     private WaitingListHandler(){
-        super();
+        this.subscribers = new ArrayList<WaitingListSubscriber>();
+    }
+
+    @Override
+    public void addSubscriber(WaitingListSubscriber subscriber){
+        subscribers.add(subscriber);
+    }
+
+    @Override
+    public void removeSubscriber(WaitingListSubscriber subscriber){
+        subscribers.remove(subscriber);
+    }
+
+    @Override
+    public void notifySubscribers(Integer value){
+        subscribers.forEach(subscriber->{
+            subscriber.update(value);
+        });
+    }
+
+    @Override
+    public List<WaitingListSubscriber> getSubscribers(){
+        return this.subscribers;
     }
 
     /*
@@ -44,26 +65,25 @@ public class WaitingListHandler extends WaitingListPublisher{
         return new DataResponse("Success", "You were added on the waiting list");
     }
     
-    public boolean deskStatus = false;
-
-    public String setDeskStatus(String status){
-        this.deskStatus = !this.deskStatus;
-        this.notifySubscribers(deskStatus);
-        return "desk status = " + this.deskStatus;
+    public DataResponse setDeskStatus(Integer deskId, String status){
+        if(status == "OK"){
+            this.notifySubscribers(deskId);
+        }
+        return new DataResponse("Success", "deskId: " + deskId + " is available" );
     }
 
-    public String checKStatus(){
-        return "desk status = " + this.deskStatus;
+    public DataResponse checKStatus(String body){
+        return DataResponse.success("???");
     }
 
-    public String checkPersons(){
+    public DataResponse checkPersons(){
         List<WaitingListSubscriber> subscribers = this.getSubscribers();
         String result = "Can use the desk:\n";
         Iterator<WaitingListSubscriber> it = subscribers.iterator();
         while(it.hasNext()){
             WaitingPerson waitingPerson = (WaitingPerson) it.next();
-            result += "person " + waitingPerson.getUserId() + " : " + waitingPerson.getCanUseDesk() + "\n"; 
+            result += "person " + waitingPerson.getUserId() + " : " + waitingPerson.isDeskAvailable() + "\n"; 
         }
-        return result;
+        return DataResponse.success(result);
     }
 }

@@ -1,5 +1,8 @@
 package com.example.demo.handlers;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import com.example.demo.models.DataResponse;
 import com.example.demo.models.DeskRequest;
 import com.example.demo.repositories.DeskRequestRepository;
@@ -70,5 +73,21 @@ public class DeskRequestHandler {
      */
     public DataResponse delete(Integer id){
         return dataHandler.delete(id);
+    }
+
+    public DataResponse getById(Integer id){
+        DataResponse data = (DataResponse)findAll();
+        if(data.getStatus() == "Success"){
+            Iterable<DeskRequest> deskRequests = (Iterable<DeskRequest>)data.getData();
+            Iterator<DeskRequest> it = deskRequests.iterator();
+            while(it.hasNext()){
+                DeskRequest deskRequest = it.next();
+                if(deskRequest.getDeskId() == id){
+                    return new DataResponse("Success", deskRequest);
+                }
+            }
+            return DataResponse.error(new Exception("desk request with desk id = " + id + " was not found"));
+        }
+        return data;
     }
 }

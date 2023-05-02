@@ -24,8 +24,13 @@ public class WaitingPerson implements WaitingListSubscriber{
 
  
     @Override
-    public void update(boolean status) {
-        this.setDeskAvailable(status);
+    public void update(Integer value) {
+        if(this.deskId == value){
+            this.setDeskAvailable(true);
+        } 
+        if (value == null) {
+            this.setDeskAvailable(false);
+        }
     }
     
     public Integer getUserId(){

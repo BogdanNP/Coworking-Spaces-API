@@ -1,30 +1,14 @@
 package com.example.demo;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class WaitingListPublisher {
-    private List<WaitingListSubscriber> subscribers;
+public abstract class WaitingListPublisher {
 
-    public WaitingListPublisher(){
-        this.subscribers = new ArrayList<WaitingListSubscriber>();
-    }
+    public abstract void addSubscriber(WaitingListSubscriber subscriber);
 
-    public void addSubscriber(WaitingListSubscriber subscriber){
-        subscribers.add(subscriber);
-    }
+    public abstract void removeSubscriber(WaitingListSubscriber subscriber);
 
-    public void removeSubscriber(WaitingListSubscriber subscriber){
-        subscribers.remove(subscriber);
-    }
+    public abstract void notifySubscribers(Integer value);
 
-    public void notifySubscribers(boolean value){
-        subscribers.forEach(subscriber->{
-            subscriber.update(value);
-        });
-    }
-
-    public List<WaitingListSubscriber> getSubscribers(){
-        return this.subscribers;
-    }
+    public abstract List<WaitingListSubscriber> getSubscribers();
 }

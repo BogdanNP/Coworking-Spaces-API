@@ -30,6 +30,15 @@ public class DataResponse {
         this.message = e.getMessage();
     }
 
+    //TODO: create class for string values AppValues -> static const String success = "Success"; 
+
+    public static DataResponse success(String message){
+        return new DataResponse("Success", message);
+    }
+    
+    public static DataResponse error(Exception e){
+        return new DataResponse("Error", e.getMessage());
+    }
     /**
      * @return String return the status
      */
