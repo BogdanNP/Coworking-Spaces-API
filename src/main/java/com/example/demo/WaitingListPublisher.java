@@ -8,7 +8,7 @@ public abstract class WaitingListPublisher {
 
     public abstract void removeSubscriber(WaitingListSubscriber subscriber);
 
-    public abstract void notifySubscribers(Integer value);
+    public abstract void notifySubscribers(Integer deskId, boolean deskStatus);
 
     public abstract List<WaitingListSubscriber> getSubscribers();
 }

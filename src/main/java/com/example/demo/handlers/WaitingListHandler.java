@@ -28,9 +28,9 @@ public class WaitingListHandler extends WaitingListPublisher{
     }
 
     @Override
-    public void notifySubscribers(Integer value){
+    public void notifySubscribers(Integer deskId, boolean deskStatus){
         subscribers.forEach(subscriber->{
-            subscriber.update(value);
+            subscriber.update(deskId, deskStatus);
         });
     }
 
@@ -54,7 +54,6 @@ public class WaitingListHandler extends WaitingListPublisher{
     }
 
     public DataResponse add(String body){
-
         WaitingPerson waitingPerson;
         try {
             waitingPerson = new WaitingPerson(body);
@@ -65,9 +64,11 @@ public class WaitingListHandler extends WaitingListPublisher{
         return new DataResponse("Success", "You were added on the waiting list");
     }
     
-    public DataResponse setDeskStatus(Integer deskId, String status){
-        if(status == "OK"){
-            this.notifySubscribers(deskId);
+    public DataResponse setDeskStatus(Integer deskId, String deskStatus){
+        if(deskStatus == "OK"){
+            this.notifySubscribers(deskId, true);
+        } else {
+            this.notifySubscribers(deskId, false);
         }
         return new DataResponse("Success", "deskId: " + deskId + " is available" );
     }
@@ -78,12 +79,7 @@ public class WaitingListHandler extends WaitingListPublisher{
 
     public DataResponse checkPersons(){
         List<WaitingListSubscriber> subscribers = this.getSubscribers();
-        String result = "Can use the desk:\n";
-        Iterator<WaitingListSubscriber> it = subscribers.iterator();
-        while(it.hasNext()){
-            WaitingPerson waitingPerson = (WaitingPerson) it.next();
-            result += "person " + waitingPerson.getUserId() + " : " + waitingPerson.isDeskAvailable() + "\n"; 
-        }
-        return DataResponse.success(result);
+        // Iterator<WaitingListSubscriber> it = subscribers.iterator();
+        return new DataResponse("Success", subscribers);
     }
 }
