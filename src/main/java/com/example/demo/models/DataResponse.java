@@ -14,31 +14,26 @@ public class DataResponse {
         this.data = data;
     }
 
-    public DataResponse(String status, String message){
-        this.status = status;
-        this.message = message;
-        this.data = null;
+    public static DataResponse success(Object object){
+        return new DataResponse(DataResponseStatus.SUCCESS, "", object);
     }
-
-    public DataResponse(String status, Object data){
-        this.status = status;
-        this.data = data;
-    }
-
-    public DataResponse(Exception e){
-        this.status = "Error";
-        this.message = e.getMessage();
-    }
-
-    //TODO: create class for string values AppValues -> static const String success = "Success"; 
 
     public static DataResponse success(String message){
-        return new DataResponse("Success", message);
+        return new DataResponse(DataResponseStatus.SUCCESS, message, null);
+    }
+
+    public static DataResponse success(Object object, String message){
+        return new DataResponse(DataResponseStatus.SUCCESS, message, object);
     }
     
     public static DataResponse error(Exception e){
-        return new DataResponse("Error", e.getMessage());
+        return new DataResponse(DataResponseStatus.ERROR, e.getMessage(), null);
     }
+
+    public static DataResponse error(String message){
+        return new DataResponse(DataResponseStatus.ERROR, message, null);
+    }
+
     /**
      * @return String return the status
      */

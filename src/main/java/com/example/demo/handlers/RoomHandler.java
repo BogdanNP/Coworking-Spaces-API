@@ -35,7 +35,7 @@ public class RoomHandler {
         try{
             room = new Room(body);
         } catch(Exception e){
-            return new DataResponse(e);
+            return DataResponse.error(e);
         }
         return dataHandler.save(room);
     }
@@ -58,7 +58,7 @@ public class RoomHandler {
         try{
             room = new Room(body);
         } catch(Exception e){
-            return new DataResponse(e);
+            return DataResponse.error(e);
         }
         return dataHandler.update(room);
     }

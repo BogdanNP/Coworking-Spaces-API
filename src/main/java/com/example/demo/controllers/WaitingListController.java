@@ -41,7 +41,7 @@ public class WaitingListController {
 
     @GetMapping(path="/waiting_list/check_status")
     public @ResponseBody DataResponse checkStatus (@RequestBody String body){
-        return waitingListHandler().checKStatus(body);
+        return deskRequestHandler().checkDeskStatus(body);
     }
 
     @GetMapping(path="/waiting_list/check_persons")

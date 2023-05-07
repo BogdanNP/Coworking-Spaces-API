@@ -35,7 +35,7 @@ public class OrderPHandler {
         try{
             order = new OrderP(body);
         } catch(Exception e){
-            return new DataResponse(e);
+            return DataResponse.error(e);
         }
         return dataHandler.save(order);
     }
@@ -58,7 +58,7 @@ public class OrderPHandler {
         try{
             order = new OrderP(body);
         } catch(Exception e){
-            return new DataResponse(e);
+            return DataResponse.error(e);
         }
         return dataHandler.update(order);
     }

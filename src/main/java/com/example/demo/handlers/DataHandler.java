@@ -24,10 +24,10 @@ public class DataHandler<T extends DataModel> {
         try{
             repository.save(dataModel);
         }catch(Exception e){
-            DataResponse dataResponse = new DataResponse("Error", e.getMessage());
+            DataResponse dataResponse = DataResponse.error(e);
             return dataResponse;
         }
-        DataResponse dataResponse = new DataResponse("Success", "Created.");
+        DataResponse dataResponse = DataResponse.success("Created.");
         return dataResponse;        
     }
     
@@ -38,10 +38,10 @@ public class DataHandler<T extends DataModel> {
     public DataResponse findAll(){
         try{
             Iterable<T> dataModels = repository.findAll();
-            DataResponse dataResponse = new DataResponse("Success", dataModels);
+            DataResponse dataResponse = DataResponse.success(dataModels);
             return dataResponse;
         }catch(Exception e){
-            DataResponse dataResponse = new DataResponse("Error", e.getMessage());
+            DataResponse dataResponse = DataResponse.error(e);
             return dataResponse;
         }
     }
@@ -70,11 +70,11 @@ public class DataHandler<T extends DataModel> {
                 }
             }
             if(found){
-                return new DataResponse("Success", "Updated.");
+                return DataResponse.success("Updated.");
             }
-            return new DataResponse("Error", "id " + dataModelToUpdate.getId() +" was not found.");
+            return DataResponse.error("id " + dataModelToUpdate.getId() +" was not found.");
         }catch(Exception e){
-            return new DataResponse("Error", e.getMessage());
+            return DataResponse.error(e);
         }
     }
 
@@ -97,11 +97,11 @@ public class DataHandler<T extends DataModel> {
                 }
             }
             if(found){
-                return new DataResponse("Suuccess", "Deleted.");
+                return DataResponse.success("Deleted.");
             }
-            return new DataResponse("Error", "id " + id +" was not found.");
+            return DataResponse.error("id " + id +" was not found.");
         } catch (Exception e){
-            return new DataResponse("Error", e.getMessage());
+            return DataResponse.error(e);
         }
     }
 }

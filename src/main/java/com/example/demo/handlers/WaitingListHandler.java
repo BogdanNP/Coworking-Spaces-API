@@ -1,7 +1,6 @@
 package com.example.demo.handlers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.example.demo.WaitingListPublisher;
@@ -58,10 +57,10 @@ public class WaitingListHandler extends WaitingListPublisher{
         try {
             waitingPerson = new WaitingPerson(body);
         } catch (Exception e) {
-            return new DataResponse(e);
+            return DataResponse.error(e);
         } 
         this.addSubscriber(waitingPerson);
-        return new DataResponse("Success", "You were added on the waiting list");
+        return DataResponse.success("You were added on the waiting list");
     }
     
     public DataResponse setDeskStatus(Integer deskId, String deskStatus){
@@ -70,16 +69,22 @@ public class WaitingListHandler extends WaitingListPublisher{
         } else {
             this.notifySubscribers(deskId, false);
         }
-        return new DataResponse("Success", "deskId: " + deskId + " is available" );
+        return DataResponse.success("deskId: " + deskId + " is available" );
     }
 
+    //we should check the desk status in the desk request -> deskRequest handler is responsible for this
     public DataResponse checKStatus(String body){
+        WaitingPerson waitingPerson;
+        try {
+            waitingPerson = new WaitingPerson(body);
+        } catch (Exception e) {
+            return DataResponse.error(e);
+        } 
         return DataResponse.success("???");
     }
 
     public DataResponse checkPersons(){
         List<WaitingListSubscriber> subscribers = this.getSubscribers();
-        // Iterator<WaitingListSubscriber> it = subscribers.iterator();
-        return new DataResponse("Success", subscribers);
+        return DataResponse.success(subscribers);
     }
 }

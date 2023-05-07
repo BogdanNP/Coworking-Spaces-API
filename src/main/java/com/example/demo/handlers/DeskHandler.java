@@ -35,7 +35,7 @@ public class DeskHandler {
         try{
             desk = new Desk(body);
         }catch(Exception e){
-            return new DataResponse(e);
+            return DataResponse.error(e);
         }
         return dataHandler.save(desk);
     }
@@ -58,7 +58,7 @@ public class DeskHandler {
         try{
             desk = new Desk(body);
         }catch(Exception e){
-            return new DataResponse(e);
+            return DataResponse.error(e);
         }
         return dataHandler.update(desk);
     }

@@ -35,7 +35,7 @@ public class UserPHandler {
         try{
             userP = new UserP(body);
         } catch(Exception e){
-            return new DataResponse(e);
+            return DataResponse.error(e);
         }
         return dataHandler.save(userP);
     }
@@ -58,7 +58,7 @@ public class UserPHandler {
         try{
             userP = new UserP(body);
         } catch(Exception e){
-            return new DataResponse(e);
+            return DataResponse.error(e);
         }
         return dataHandler.update(userP);
     }
