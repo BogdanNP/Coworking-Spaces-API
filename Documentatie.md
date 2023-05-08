@@ -16,19 +16,24 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
     * posibilitatea de inchirere a unui birou  
     * anularea comenzii plasate
     * plata comenzii 
+    * abonare in lista de asteptare
+    * dezabonare din lista de asteptare
 ### Administrator:
     * crearea de conturi  
     * programarea utilizatorilor  
     * anularea comenzilor plasate de catre utilizatori  
     * vizualizare in timp real a birourilor  
     * adaugarea/stergerea de camerea  
-    * adaugarea/stergerea de birouri  
-    
+    * adaugarea/stergerea de birouri
+    * abonare utilizator in lista de asteptare
+    * dezabonare utilizator din lista de asteptare
+
 ## Diagrama Baza de Date:
 ![DiagramaBD](diagramaBD.png)
 
 ## Endpoint-uri:  
 **Adresa: localhost:8080/demo**  
+**Adresa pentru MobileApp: 10.0.2.2:8080/demo**  
 **Toate requesturile trimit un raspuns de forma:**  
 ```
 {
@@ -79,4 +84,13 @@ birouri pe o anumita durata de timp, din spatii special destinate pentru munca p
     * PUT /update -> modifica o comanda
                   -> body: {"id"(REQUIRED), "total", "user_id", "desk_id", "status"}  
     * DELETE /delete -> sterge o comanda
-                     -> param: $id 
+                     -> param: $id
+
+### /wating_list
+    * GET /check_persons -> returneaza o lista cu un utilizatorii care sunt in lista de asteptare  
+    * POST /add -> adauga un utilizator in lista de asteptare  
+                -> body {"user_id", "desk_id"}  
+    * POST /check-status -> returneaza statusul biroului  
+                         -> body {"desk_id"}  
+    * DELETE /remove -> sterge un utilizator din lista de asteptare
+                     -> param: $id  
