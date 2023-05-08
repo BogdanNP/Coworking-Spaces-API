@@ -19,6 +19,8 @@ import com.example.demo.repositories.DeskRepository;
 @RequestMapping(path="/demo")
 public class WaitingListController {
 
+    //TODO: add javadoc
+
     @Autowired 
     private DeskRequestRepository deskRequestRepository;    
 
@@ -29,7 +31,6 @@ public class WaitingListController {
         return WaitingListHandler.instance(deskRequestRepository, deskRepository);
     }
     
-
     @PostMapping(path="/waiting_list/add")
     public @ResponseBody DataResponse addPersonToList (@RequestBody String body){
         return waitingListHandler().add(body);

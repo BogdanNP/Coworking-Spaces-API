@@ -18,6 +18,9 @@ import com.example.demo.repositories.DeskRequestRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class WaitingListHandler extends WaitingListPublisher{
+
+    // TODO: add javadoc
+    
     private DataHandler<DeskRequest> deskRequestDataHandler;
     private DataHandler<Desk> deskDataHandler;
 
