@@ -16,7 +16,7 @@ public class OrderP extends DataModel{
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-    private Float total;
+    private Double total;
     private Integer userId;
     private Integer deskId;
     private String status;
@@ -38,7 +38,7 @@ public class OrderP extends DataModel{
         setStatus((String)map.get("status"));
         setUserId((Integer)map.get("user_id"));
         setDeskId((Integer)map.get("desk_id"));
-        setTotal((Float)map.get("total"));
+        setTotal((Double)map.get("total"));
     }
     
     /**
@@ -79,14 +79,14 @@ public class OrderP extends DataModel{
     /**
      * @return Double return the total
      */
-    public Float getTotal() {
+    public Double getTotal() {
         return total;
     }
 
     /**
      * @param total the total to set
      */
-    public void setTotal(Float total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

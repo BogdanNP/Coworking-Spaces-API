@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.websocket.OnClose;
 
 @Entity
 public class Desk extends DataModel{
@@ -23,6 +24,17 @@ public class Desk extends DataModel{
     private String tariffType;
 
     public Desk(){}
+
+    public Desk copy(){
+        Desk desk = new Desk();
+        desk.setId(id);
+		desk.setHeight(height);
+		desk.setWidth(width);
+		desk.setLength(length);
+		desk.setTariff(tariff);
+		desk.setTariffType(tariffType);
+        return desk;
+    }
 
     /**
      * Creates a Desk object from a JSON String.
@@ -147,6 +159,31 @@ public class Desk extends DataModel{
      */
     public void setTariffType(String tariffType) {
         this.tariffType = tariffType;
+    }
+
+    @Override 
+    public boolean equals(Object obj) {
+        if(obj.getClass() != Desk.class){
+            return false;
+        }
+        Desk desk = (Desk)obj;
+        return id == desk.getId() 
+        && height == desk.getHeight()
+        && width == desk.getWidth()
+        && length == desk.getLength() 
+        && tariff == desk.getTariff() 
+        && tariffType == desk.getTariffType(); 
+    }
+
+    @Override
+    public String toString() {
+       return "Desk[id="+id
+       + "; height="+height
+       + "; width="+width
+       + "; length="+length
+       + "; tariff="+tariff
+       + "; tariffType="+tariffType
+       + "]";
     }
 
 }

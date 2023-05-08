@@ -132,4 +132,27 @@ public class Room extends DataModel{
         this.details = details;
     }
 
+    
+    @Override 
+    public boolean equals(Object obj) {
+        if(obj.getClass() != Room.class){
+            return false;
+        }
+        Room room = (Room)obj;
+        return id == room.getId() 
+        && width == room.getWidth()
+        && length == room.getLength()
+        && details.equals(room.details)
+        && deskList.equals(room.getDeskList()); 
+    }
+
+    @Override
+    public String toString() {
+       return "Desk[id="+id
+       + "; width="+width
+       + "; length="+length
+       + "; details="+details
+       + "]";
+    }
+
 }

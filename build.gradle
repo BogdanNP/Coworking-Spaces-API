@@ -17,6 +17,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompile group: 'org.mockito', name: 'mockito-core', version: '4.8.1'
 }
 
 tasks.named('test') {

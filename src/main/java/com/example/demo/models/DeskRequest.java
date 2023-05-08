@@ -154,5 +154,30 @@ class DeskRequest extends DataModel{
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+    
+    @Override 
+    public boolean equals(Object obj) {
+        if(obj.getClass() != DeskRequest.class){
+            return false;
+        }
+        DeskRequest deskRequest = (DeskRequest)obj;
+        return id == deskRequest.getId() 
+        && status == deskRequest.getStatus()
+        && userId == deskRequest.getUserId()
+        && deskId == deskRequest.getDeskId()
+        && startDate.equals(deskRequest.getStartDate())
+        && endDate.equals(deskRequest.getEndDate()); 
+    }
+
+    @Override
+    public String toString() {
+       return "Desk[id="+id
+       + "; status="+status
+       + "; userId="+userId
+       + "; deskId="+deskId
+       + "; startDate="+startDate
+       + "; endDate="+endDate
+       + "]";
+    }
 
 }
