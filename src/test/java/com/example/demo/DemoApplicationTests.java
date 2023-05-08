@@ -8,16 +8,24 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.engine.spi.ExecutableList;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.demo.handlers.DeskHandler;
 import com.example.demo.lab7.CalculDobanda;
 import com.example.demo.lab7.OpBD;
 import com.example.demo.lab7.OpBDMock;
 import com.example.demo.lab7.RiskProfile;
 import com.example.demo.lab7.TipDobanda;
 import com.example.demo.lab7.User;
+import com.example.demo.models.DataResponse;
+import com.example.demo.models.Desk;
+import com.example.demo.repositories.DeskRepository;
 
 // @SpringBootTest
 class DemoApplicationTests {
@@ -94,5 +102,26 @@ class DemoApplicationTests {
 		assertNotEquals(0.5, result);
 		System.out.println("SUCCESS!!!");
 	}
+
+
+	@Mock
+	DeskRepository deskRepository;
+	@Test
+	void test1(){
+		MockitoAnnotations.openMocks(this);
+		System.out.println("TEST RUNNING...");
+		List<Desk> it = new ArrayList<Desk>();
+		Desk desk = new Desk(); 
+		it.add(desk);
+		when(deskRepository.findAll()).thenReturn(it);
+		DeskHandler deskHandler = DeskHandler.instance(deskRepository);
+		DataResponse response = deskHandler.findAll();
+		ArrayList<Desk> testDL = (ArrayList)response.getData();
+		Desk testD = testDL.get(0);
+		assertEquals(desk.getId(), testD.getId());
+		System.out.println("SUCCESS!!!");
+	}
+
+
 
 }
