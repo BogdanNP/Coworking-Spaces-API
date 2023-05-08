@@ -2,14 +2,14 @@ package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.handlers.DeskRequestHandler;
-import com.example.demo.handlers.DeskHandler;
 import com.example.demo.handlers.WaitingListHandler;
 import com.example.demo.models.DataResponse;
 import com.example.demo.repositories.DeskRequestRepository;
@@ -33,6 +33,11 @@ public class WaitingListController {
     @PostMapping(path="/waiting_list/add")
     public @ResponseBody DataResponse addPersonToList (@RequestBody String body){
         return waitingListHandler().add(body);
+    }
+
+    @DeleteMapping(path="/waiting_list/remove")
+    public @ResponseBody DataResponse removePersonFromList (@RequestParam("id") Integer id){
+        return waitingListHandler().remove(id);
     }
 
     @PostMapping(path="/waiting_list/check_status")

@@ -52,13 +52,6 @@ public class WaitingListHandler extends WaitingListPublisher{
         return this.subscribers;
     }
 
-    /*
-     * TODOs:
-     * - make person to wait for a Desk
-     * - notify person when they can use a Desk
-     * - Do this for more desks
-     */
-
     public static WaitingListHandler instance(DeskRequestRepository deskRequestRepository, DeskRepository deskRepository){
         if (_instance == null){
             _instance = new WaitingListHandler(deskRequestRepository, deskRepository);
@@ -81,6 +74,18 @@ public class WaitingListHandler extends WaitingListPublisher{
         } 
         this.addSubscriber(waitingPerson);
         return DataResponse.success("You were added on the waiting list");
+    }
+
+    public DataResponse remove(Integer id){
+        Iterator<WaitingListSubscriber> it = this.subscribers.iterator();
+        while(it.hasNext()){
+            WaitingPerson waitingPerson = (WaitingPerson) it.next();
+            if(waitingPerson.getUserId() == id){
+                removeSubscriber(waitingPerson);
+                break;
+            }
+        }
+        return DataResponse.success("You were removed from the waiting list");
     }
 
     public DataResponse checkPersons(){

@@ -63,8 +63,8 @@ public class WaitingPerson implements WaitingListSubscriber{
     /**
      * @param canUseDesk the canUseDesk to set
      */
-    public void setDeskAvailable(boolean canUseDesk) {
-        this.deskAvailable = canUseDesk;
+    public void setDeskAvailable(boolean deskAvailable) {
+        this.deskAvailable = deskAvailable;
     }
 
 }
