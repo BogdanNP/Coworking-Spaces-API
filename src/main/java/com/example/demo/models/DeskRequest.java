@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -31,16 +33,18 @@ class DeskRequest extends DataModel{
      * @param json 
      * @throws JsonMappingException
      * @throws JsonProcessingException
+     * @throws ParseException
      */
-    public DeskRequest(String json) throws JsonMappingException, JsonProcessingException{
+    public DeskRequest(String json) throws JsonMappingException, JsonProcessingException, ParseException{
         ObjectMapper mapper = new ObjectMapper();
+        SimpleDateFormat dateFormater = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Map<String, Object> map = mapper.readValue(json, Map.class);
         setId((Integer)map.get("id"));
         setStatus((String)map.get("status"));
         setUserId((Integer)map.get("user_id"));
         setDeskId((Integer)map.get("desk_id"));
-        setStartDate((Date)map.get("start_date"));
-        setEndDate((Date)map.get("end_date"));
+        setStartDate(dateFormater.parse((String) map.get("start_date")));
+        setEndDate(dateFormater.parse((String) map.get("end_date")));
     } 
 
     /**

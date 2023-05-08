@@ -70,31 +70,17 @@ public class WaitingListHandler extends WaitingListPublisher{
         WaitingPerson waitingPerson;
         try {
             waitingPerson = new WaitingPerson(body);
+            DataResponse dataResponse = this._checkDeskById(waitingPerson.getDeskId());
+            if(dataResponse.getStatus() == DataResponseStatus.SUCCESS){
+                if(dataResponse.getMessage() == DeskStatus.AVAILABLE){
+                    waitingPerson.setDeskAvailable(true);
+                }
+            }
         } catch (Exception e) {
             return DataResponse.error(e);
         } 
         this.addSubscriber(waitingPerson);
         return DataResponse.success("You were added on the waiting list");
-    }
-    
-    public DataResponse setDeskStatus(Integer deskId, String deskStatus){
-        if(deskStatus == "OK"){
-            this.notifySubscribers(deskId, true);
-        } else {
-            this.notifySubscribers(deskId, false);
-        }
-        return DataResponse.success("deskId: " + deskId + " is available" );
-    }
-
-    //we should check the desk status in the desk request -> deskRequest handler is responsible for this
-    public DataResponse checKStatus(String body){
-        WaitingPerson waitingPerson;
-        try {
-            waitingPerson = new WaitingPerson(body);
-        } catch (Exception e) {
-            return DataResponse.error(e);
-        } 
-        return DataResponse.success("???");
     }
 
     public DataResponse checkPersons(){
@@ -112,6 +98,10 @@ public class WaitingListHandler extends WaitingListPublisher{
             return DataResponse.error(e);
         }
         id = (Integer) map.get("desk_id");
+        return this._checkDeskById(id);
+    }
+
+    private DataResponse _checkDeskById(Integer id){
         DataResponse deskRequestData = deskRequestDataHandler.findAll();
         if(deskRequestData.getStatus() == DataResponseStatus.SUCCESS){
             Iterable<DeskRequest> deskRequests = (Iterable<DeskRequest>)deskRequestData.getData();
@@ -119,6 +109,11 @@ public class WaitingListHandler extends WaitingListPublisher{
             while(deskRequestIt.hasNext()){
                 DeskRequest deskRequest = deskRequestIt.next();
                 if(deskRequest.getDeskId() == id){
+                    if(deskRequest.getStatus().compareTo(DeskStatus.AVAILABLE) == 0){
+                        notifySubscribers(id, true);
+                    } else {
+                        notifySubscribers(id, false);
+                    }
                     return DataResponse.success(deskRequest.getStatus());
                 }
             }
@@ -128,6 +123,7 @@ public class WaitingListHandler extends WaitingListPublisher{
             while(desksIt.hasNext()){
                 Desk desk = desksIt.next();
                 if(desk.getId() == id){
+                    notifySubscribers(id, true);
                     return DataResponse.success(DeskStatus.AVAILABLE);
                 }
             }
@@ -135,4 +131,6 @@ public class WaitingListHandler extends WaitingListPublisher{
         }
         return deskRequestData;
     }
+
+  
 }

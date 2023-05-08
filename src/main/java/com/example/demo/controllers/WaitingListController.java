@@ -35,12 +35,7 @@ public class WaitingListController {
         return waitingListHandler().add(body);
     }
 
-    @PostMapping(path="/waiting_list/set_status")
-    public @ResponseBody DataResponse updatStatus (@RequestBody String body){
-        return waitingListHandler().setDeskStatus(1, body);
-    }
-
-    @GetMapping(path="/waiting_list/check_status")
+    @PostMapping(path="/waiting_list/check_status")
     public @ResponseBody DataResponse checkStatus (@RequestBody String body){
         return waitingListHandler().checkDeskStatus(body);
     }
