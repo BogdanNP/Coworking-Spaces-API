@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class DemoApplication {
+    // TODO: think about all the use cases and logic you need to add
+    // * date-time should be in future
+    // * we need a method to auto-update the desk reqests
     public static void main(String[] args) {
       SpringApplication.run(DemoApplication.class, args);
     }

@@ -21,7 +21,6 @@ public class WaitingPerson implements WaitingListSubscriber{
         setDeskId((Integer) map.get("desk_id"));
         setDeskAvailable(false);
     }
-
  
     @Override
     public void update(Integer deskId, boolean deskStatus) {

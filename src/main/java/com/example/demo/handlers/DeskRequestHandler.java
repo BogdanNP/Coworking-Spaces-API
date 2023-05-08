@@ -1,11 +1,8 @@
 package com.example.demo.handlers;
-import java.util.Iterator;
-import java.util.Map;
 
 import com.example.demo.models.DataResponse;
 import com.example.demo.models.DeskRequest;
 import com.example.demo.repositories.DeskRequestRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DeskRequestHandler {
 
