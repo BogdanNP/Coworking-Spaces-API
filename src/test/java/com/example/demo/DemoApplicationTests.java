@@ -63,9 +63,9 @@ class DemoApplicationTests {
 		SimpleDateFormat dateFormater = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
 		DeskRequest deskRequest = new DeskRequest(); 
 		deskRequest.setId(1);
-		deskRequest.setDeskId(100);
+		deskRequest.setDeskId(1);
 		deskRequest.setStatus(DeskStatus.AVAILABLE);
-		deskRequest.setUserId(120);
+		deskRequest.setUserId(1);
 		try {
 			deskRequest.setStartDate(dateFormater.parse("09-05-2023-00:22:23"));
 			deskRequest.setEndDate(dateFormater.parse("09-05-2023-07:22:23"));
@@ -76,8 +76,8 @@ class DemoApplicationTests {
 	OrderP mockOrderP(){
 		OrderP orderP = new OrderP();
 		orderP.setId(1);
-		orderP.setDeskId(100);
-		orderP.setUserId(120);
+		orderP.setDeskId(1);
+		orderP.setUserId(1);
 		orderP.setStatus("PERFECT");
 		orderP.setTotal(300.0);
 		return orderP;
@@ -87,8 +87,8 @@ class DemoApplicationTests {
 		Room room = new Room();
 		room.setDetails("details");
 		room.setId(1);
-		room.setLength(1);
-		room.setWidth(100);
+		room.setLength(200);
+		room.setWidth(20);
 		return room;
 	}
 
@@ -112,11 +112,9 @@ class DemoApplicationTests {
 		when(deskRepository.findAll()).thenReturn(deskList);
 		DeskHandler deskHandler = DeskHandler.instance(deskRepository);
 		DataResponse response = deskHandler.findAll();
-		ArrayList<Desk> testDL = (ArrayList)response.getData();
-		
-		Desk testD = testDL.get(0).copy();
-		testD.setHeight(1023);
-		assertEquals(mockDesk, testD);
+		ArrayList<Desk> testDeskList = (ArrayList)response.getData();
+		Desk testDesk = testDeskList.get(0).copy();
+		assertEquals(mockDesk, testDesk);
 	}
 
 	@Test
@@ -127,14 +125,9 @@ class DemoApplicationTests {
 		when(deskRepository.findAll()).thenReturn(deskList);
 		DeskHandler deskHandler = DeskHandler.instance(deskRepository);
 		DataResponse response = deskHandler.findAll();
-		ArrayList<Desk> testDL = (ArrayList)response.getData();
-		Desk testD = testDL.get(0);
-		assertEquals(mockDesk.getId(), testD.getId());
-		assertEquals(mockDesk.getHeight(), testD.getHeight());
-		assertEquals(mockDesk.getWidth(), testD.getWidth());
-		assertEquals(mockDesk.getLength(), testD.getLength());
-		assertEquals(mockDesk.getTariff(), testD.getTariff());
-		assertEquals(mockDesk.getTariffType(), testD.getTariffType());
+		ArrayList<Desk> testDeskList = (ArrayList)response.getData();
+		Desk testDesk = testDeskList.get(0);
+		assertEquals(mockDesk, testDesk);
 	}
 
 	@Test
@@ -143,14 +136,8 @@ class DemoApplicationTests {
 		when(deskRepository.save(mockDesk)).thenReturn(mockDesk);
 		DeskHandler deskHandler = DeskHandler.instance(deskRepository);
 		DataResponse response = deskHandler.findAll();
-		ArrayList<Desk> testDL = (ArrayList)response.getData();
-		Desk testD = testDL.get(0);
-		assertEquals(mockDesk.getId(), testD.getId());
-		assertEquals(mockDesk.getHeight(), testD.getHeight());
-		assertEquals(mockDesk.getWidth(), testD.getWidth());
-		assertEquals(mockDesk.getLength(), testD.getLength());
-		assertEquals(mockDesk.getTariff(), testD.getTariff());
-		assertEquals(mockDesk.getTariffType(), testD.getTariffType());
+		ArrayList<Desk> testDeskList = (ArrayList)response.getData();
+		Desk testDesk = testDeskList.get(0);
+		assertEquals(mockDesk, testDesk);
 	}
-
 }
