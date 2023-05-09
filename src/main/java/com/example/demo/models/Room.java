@@ -148,10 +148,11 @@ public class Room extends DataModel{
 
     @Override
     public String toString() {
-       return "Desk[id="+id
+       return "Room[id="+id
        + "; width="+width
        + "; length="+length
        + "; details="+details
+       + "; deskList="+deskList
        + "]";
     }
 

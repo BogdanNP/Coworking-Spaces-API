@@ -132,5 +132,31 @@ public class OrderP extends DataModel{
         this.status = status;
     }
 
+    
+    @Override 
+    public boolean equals(Object obj) {
+        if(obj.getClass() != OrderP.class){
+            return false;
+        }
+        OrderP orderP = (OrderP)obj;
+        return id == orderP.getId() 
+        && status == orderP.getStatus()
+        && userId == orderP.getUserId()
+        && deskId == orderP.getDeskId()
+        && total == orderP.getTotal()
+        && status.equals(orderP.getStatus()); 
+    }
+
+    @Override
+    public String toString() {
+       return "OrderP[id="+id
+       + "; status="+status
+       + "; userId="+userId
+       + "; deskId="+deskId
+       + "; status="+status
+       + "; total="+total
+       + "]";
+    }
+
    
 }

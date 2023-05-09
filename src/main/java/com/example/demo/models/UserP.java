@@ -88,4 +88,25 @@ public class UserP extends DataModel{
     this.password = password;
   }
 
+  @Override 
+  public boolean equals(Object obj) {
+      if(obj.getClass() != UserP.class){
+          return false;
+      }
+      UserP userP = (UserP)obj;
+      return id == userP.getId() 
+      && username == userP.getUsername()
+      && password == userP.getPassword()
+      && type.equals(userP.getType()); 
+  }
+
+  @Override
+  public String toString() {
+     return "UserP[id="+id
+     + "; username="+username
+     + "; type="+type
+     + "; password="+password
+     + "]";
+  }
+
 }

@@ -66,4 +66,23 @@ public class WaitingPerson implements WaitingListSubscriber{
         this.deskAvailable = deskAvailable;
     }
 
+    
+  @Override 
+  public boolean equals(Object obj) {
+      if(obj.getClass() != WaitingPerson.class){
+          return false;
+      }
+      WaitingPerson waitingPerson = (WaitingPerson)obj;
+      return userId == waitingPerson.getUserId() 
+      && deskId == waitingPerson.getDeskId()
+      && deskAvailable == waitingPerson.isDeskAvailable(); 
+  }
+
+  @Override
+  public String toString() {
+     return "WaitingPerson[userId="+userId
+     + "; deskId="+deskId
+     + "; deskAvailable="+deskAvailable
+     + "]";
+  }
 }

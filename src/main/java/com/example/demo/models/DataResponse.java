@@ -76,4 +76,25 @@ public class DataResponse {
         this.data = data;
     }
 
+    
+  @Override 
+  public boolean equals(Object obj) {
+      if(obj.getClass() != DataResponse.class){
+          return false;
+      }
+      DataResponse dataResponse = (DataResponse)obj;
+      return status.equals(dataResponse.getStatus()) 
+      && message.equals(dataResponse.getMessage())
+      && data.equals(dataResponse.getData())
+      ; 
+  }
+
+  @Override
+  public String toString() {
+     return "DataResponse[status="+status
+     + "; message="+message
+     + "; data="+data
+     + "]";
+  }
+
 }
