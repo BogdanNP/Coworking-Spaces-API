@@ -14,6 +14,8 @@ public class WaitingPerson implements WaitingListSubscriber{
     private Integer deskId;
     private boolean deskAvailable;
 
+    public WaitingPerson(){}
+    
     public WaitingPerson(String json) throws JsonMappingException, JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map = mapper.readValue(json, Map.class);

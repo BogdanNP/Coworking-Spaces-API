@@ -22,6 +22,7 @@ import com.example.demo.handlers.DeskRequestHandler;
 import com.example.demo.handlers.OrderPHandler;
 import com.example.demo.handlers.RoomHandler;
 import com.example.demo.handlers.UserPHandler;
+import com.example.demo.handlers.WaitingListHandler;
 import com.example.demo.models.DataResponse;
 import com.example.demo.models.DataResponseStatus;
 import com.example.demo.models.Desk;
@@ -30,6 +31,7 @@ import com.example.demo.models.DeskStatus;
 import com.example.demo.models.OrderP;
 import com.example.demo.models.Room;
 import com.example.demo.models.UserP;
+import com.example.demo.models.WaitingPerson;
 import com.example.demo.repositories.DeskRepository;
 import com.example.demo.repositories.DeskRequestRepository;
 import com.example.demo.repositories.OrderPRepository;
@@ -183,6 +185,26 @@ class DemoApplicationTests {
 			map.put("type", "USER");
 			map.put("password", "1234");
 			map.put("username", "TestUsername");
+			return mapper.writeValueAsString(map);
+		} catch (Exception e){
+			return "";
+		}
+	}
+
+	WaitingPerson mockWaitingPerson(){
+		WaitingPerson waitingPerson = new WaitingPerson();
+		waitingPerson.setUserId(1);
+		waitingPerson.setDeskId(1);
+		waitingPerson.setDeskAvailable(false);
+		return waitingPerson;
+	}
+
+	String mockWaitingPersonJSON(){
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("user_id", 1);
+			map.put("desk_id", 1);
 			return mapper.writeValueAsString(map);
 		} catch (Exception e){
 			return "";
@@ -598,5 +620,16 @@ class DemoApplicationTests {
 		verify(userPRepository, times(0)).delete(mockUserP2);
 		assertEquals(DataResponseStatus.ERROR, response.getStatus());
 	}
+
+	// WaitingList Tests
+
+	// @Test
+	// void addWaitingPerson(){
+	// 	WaitingPerson waitingPerson = mockWaitingPerson();
+	// 	// when(deskRequestRepository.findAll()).thenAnswer(null)
+	// 	WaitingListHandler waitingListHandler = WaitingListHandler.instance(
+	// 		deskRequestRepository, deskRepository);
+
+	// }
 
 }
