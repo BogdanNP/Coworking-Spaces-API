@@ -24,6 +24,16 @@ public class Room extends DataModel{
 
     public Room(){}
 
+    public Room copy(){
+        Room room = new Room();
+        room.setId(id);
+		room.setWidth(width);
+		room.setLength(length);
+		room.setDeskList(deskList);
+		room.setDetails(details);
+        return room;
+    }
+
     /**
      * Creates a Room object from a JSON String.
      * @param json 
@@ -139,9 +149,9 @@ public class Room extends DataModel{
             return false;
         }
         Room room = (Room)obj;
-        return id == room.getId() 
-        && width == room.getWidth()
-        && length == room.getLength()
+        return id.equals(room.getId())
+        && width.equals(room.getWidth())
+        && length.equals(room.getLength())
         && details.equals(room.details)
         && deskList.equals(room.getDeskList()); 
     }

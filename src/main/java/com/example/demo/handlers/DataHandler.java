@@ -22,13 +22,11 @@ public class DataHandler<T extends DataModel> {
      */
     public DataResponse save(T dataModel){
         try{
-            repository.save(dataModel);
+            return DataResponse.success(repository.save(dataModel), "Created.");
         }catch(Exception e){
             DataResponse dataResponse = DataResponse.error(e);
             return dataResponse;
         }
-        DataResponse dataResponse = DataResponse.success("Created.");
-        return dataResponse;        
     }
     
       /**
@@ -58,19 +56,14 @@ public class DataHandler<T extends DataModel> {
             //TODO: update this method in order to keep the same id;
 
             Iterable<T> dataModels =  repository.findAll();
-            boolean found = false;
             Iterator<T> it = dataModels.iterator();
             while(it.hasNext()){
                 T dataModel = it.next();
                 if(dataModel.getId().equals(dataModelToUpdate.getId())){
-                    found = true;
                     repository.delete(dataModel);
                     dataModel.updateFrom(dataModelToUpdate);
-                    repository.save(dataModel);
+                    return DataResponse.success(repository.save(dataModel), "Updated.");
                 }
-            }
-            if(found){
-                return DataResponse.success("Updated.");
             }
             return DataResponse.error("id " + dataModelToUpdate.getId() +" was not found.");
         }catch(Exception e){
@@ -87,17 +80,13 @@ public class DataHandler<T extends DataModel> {
     public DataResponse delete(Integer id){
         try{
             Iterable<T> dataModels = repository.findAll();
-            boolean found = false;
             Iterator<T> it = dataModels.iterator();
             while(it.hasNext()){
                 T dataModel = it.next();
                 if(dataModel.getId().equals(id)){
-                    found = true;
                     repository.delete(dataModel);
+                    return DataResponse.success("Deleted.");
                 }
-            }
-            if(found){
-                return DataResponse.success("Deleted.");
             }
             return DataResponse.error("id " + id +" was not found.");
         } catch (Exception e){

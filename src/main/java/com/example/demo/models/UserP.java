@@ -23,6 +23,15 @@ public class UserP extends DataModel{
 
   public UserP(){}
 
+  public UserP copy(){
+    UserP userP = new UserP();
+    userP.setId(id);
+    userP.setType(type);
+    userP.setUsername(username);
+    userP.setPassword(password);
+    return userP;
+  }
+
   /**
   * Creates a UserP object from a JSON String.
   * @param json 
@@ -36,6 +45,7 @@ public class UserP extends DataModel{
       setUsername((String)map.get("username"));
       setPassword((String)map.get("password"));
       setType((String)map.get("type"));
+      setId((Integer)map.get("id"));
   }
   
   /**
@@ -90,13 +100,13 @@ public class UserP extends DataModel{
 
   @Override 
   public boolean equals(Object obj) {
-      if(obj.getClass() != UserP.class){
+      if(obj != null && obj.getClass() != UserP.class){
           return false;
       }
       UserP userP = (UserP)obj;
-      return id == userP.getId() 
-      && username == userP.getUsername()
-      && password == userP.getPassword()
+      return id.equals(userP.getId())
+      && username.equals(userP.getUsername())
+      && password.equals(userP.getPassword())
       && type.equals(userP.getType()); 
   }
 

@@ -163,16 +163,16 @@ public class Desk extends DataModel{
 
     @Override 
     public boolean equals(Object obj) {
-        if(obj.getClass() != Desk.class){
+        if(obj != null && obj.getClass() != Desk.class){
             return false;
         }
         Desk desk = (Desk)obj;
-        return id == desk.getId() 
-        && height == desk.getHeight()
-        && width == desk.getWidth()
-        && length == desk.getLength() 
-        && tariff == desk.getTariff() 
-        && tariffType == desk.getTariffType(); 
+        return id.equals(desk.getId()) 
+        && height.equals(desk.getHeight())
+        && width.equals(desk.getWidth())
+        && length.equals(desk.getLength()) 
+        && tariff.equals(desk.getTariff()) 
+        && tariffType.equals(desk.getTariffType()); 
     }
 
     @Override

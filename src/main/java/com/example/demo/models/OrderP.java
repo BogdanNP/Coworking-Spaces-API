@@ -24,6 +24,16 @@ public class OrderP extends DataModel{
       
     public OrderP() {}
 
+    public OrderP copy(){
+        OrderP orderP = new OrderP();
+        orderP.setId(id);
+		orderP.setStatus(status);
+		orderP.setUserId(userId);
+		orderP.setDeskId(deskId);
+ 		orderP.setTotal(total);
+        return orderP;
+    }
+
     /**
      * Creates an OrderP object from a JSON String.
      * @param json 
@@ -139,11 +149,11 @@ public class OrderP extends DataModel{
             return false;
         }
         OrderP orderP = (OrderP)obj;
-        return id == orderP.getId() 
-        && status == orderP.getStatus()
-        && userId == orderP.getUserId()
-        && deskId == orderP.getDeskId()
-        && total == orderP.getTotal()
+        return id.equals(orderP.getId()) 
+        && status.equals(orderP.getStatus())
+        && userId.equals(orderP.getUserId())
+        && deskId.equals(orderP.getDeskId())
+        && total.equals(orderP.getTotal())
         && status.equals(orderP.getStatus()); 
     }
 

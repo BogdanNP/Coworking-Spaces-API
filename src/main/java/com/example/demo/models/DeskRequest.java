@@ -28,6 +28,18 @@ class DeskRequest extends DataModel{
     private Date endDate;
 
     public DeskRequest(){}
+
+    public DeskRequest copy(){
+        DeskRequest deskRequest = new DeskRequest();
+        deskRequest.setId(id);
+		deskRequest.setStatus(status);
+		deskRequest.setUserId(userId);
+		deskRequest.setDeskId(deskId);
+		deskRequest.setStartDate(startDate);
+		deskRequest.setEndDate(endDate);
+        return deskRequest;
+    }
+
     /**
      * Creates a DeskRequest object from a JSON String.
      * @param json 
@@ -161,10 +173,10 @@ class DeskRequest extends DataModel{
             return false;
         }
         DeskRequest deskRequest = (DeskRequest)obj;
-        return id == deskRequest.getId() 
-        && status == deskRequest.getStatus()
-        && userId == deskRequest.getUserId()
-        && deskId == deskRequest.getDeskId()
+        return id.equals(deskRequest.getId()) 
+        && status.equals(deskRequest.getStatus())
+        && userId.equals(deskRequest.getUserId())
+        && deskId.equals(deskRequest.getDeskId())
         && startDate.equals(deskRequest.getStartDate())
         && endDate.equals(deskRequest.getEndDate()); 
     }

@@ -73,8 +73,8 @@ public class WaitingPerson implements WaitingListSubscriber{
           return false;
       }
       WaitingPerson waitingPerson = (WaitingPerson)obj;
-      return userId == waitingPerson.getUserId() 
-      && deskId == waitingPerson.getDeskId()
+      return userId.equals(waitingPerson.getUserId()) 
+      && deskId.equals(waitingPerson.getDeskId())
       && deskAvailable == waitingPerson.isDeskAvailable(); 
   }
 
