@@ -18,8 +18,6 @@ import com.example.demo.repositories.DeskRequestRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class WaitingListHandler extends WaitingListPublisher{
-
-    // TODO: add javadoc
     
     private DataHandler<DeskRequest> deskRequestDataHandler;
     private DataHandler<Desk> deskDataHandler;
@@ -62,6 +60,11 @@ public class WaitingListHandler extends WaitingListPublisher{
         return _instance;
     }
 
+    /**
+     * Adds a waiting person in the waiting list.
+     * @param body
+     * @return
+     */
     public DataResponse add(String body){
         WaitingPerson waitingPerson;
         try {
@@ -79,6 +82,11 @@ public class WaitingListHandler extends WaitingListPublisher{
         return DataResponse.success(waitingPerson, "You were added on the waiting list");
     }
 
+    /**
+     * Removes a waiting person from the waiting list.
+     * @param id
+     * @return
+     */
     public DataResponse remove(Integer id){
         Iterator<WaitingListSubscriber> it = this.subscribers.iterator();
         while(it.hasNext()){
@@ -96,6 +104,11 @@ public class WaitingListHandler extends WaitingListPublisher{
         return DataResponse.success(subscribers);
     }
 
+    /**
+     * Checks the desk status by the id.
+     * @param body
+     * @return DataResponse
+     */
     public DataResponse checkDeskStatus(String body){
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map;
@@ -109,6 +122,14 @@ public class WaitingListHandler extends WaitingListPublisher{
         return this._checkDeskById(id);
     }
 
+    /**
+     * Checks if a desk exists, first in the desk requests then checks all the deska in DB.
+     * If the desk is found then we call the method "notifySubscribers" to inform the
+     * subscribers abut the desk status.
+     * If the desk is not found then we return an error message in the DataResponse object.
+     * @param id
+     * @return DataResponse
+     */
     private DataResponse _checkDeskById(Integer id){
         DataResponse deskRequestData = deskRequestDataHandler.findAll();
         if(deskRequestData.getStatus() == DataResponseStatus.SUCCESS){

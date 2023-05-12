@@ -218,8 +218,6 @@ class DemoApplicationTests {
 		return new Exception("mockException");
 	}
 
-	//TODO: align data in order to make all the logic work
-
 	// Desk Tests
 
 	@Test
