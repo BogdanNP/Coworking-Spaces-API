@@ -76,7 +76,7 @@ public class WaitingListHandler extends WaitingListPublisher{
             return DataResponse.error(e);
         } 
         this.addSubscriber(waitingPerson);
-        return DataResponse.success("You were added on the waiting list");
+        return DataResponse.success(waitingPerson, "You were added on the waiting list");
     }
 
     public DataResponse remove(Integer id){

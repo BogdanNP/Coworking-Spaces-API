@@ -29,8 +29,11 @@ import com.example.demo.models.Desk;
 import com.example.demo.models.DeskRequest;
 import com.example.demo.models.DeskStatus;
 import com.example.demo.models.OrderP;
+import com.example.demo.models.OrderPStatus;
 import com.example.demo.models.Room;
+import com.example.demo.models.TariffTypes;
 import com.example.demo.models.UserP;
+import com.example.demo.models.UserPTypes;
 import com.example.demo.models.WaitingPerson;
 import com.example.demo.repositories.DeskRepository;
 import com.example.demo.repositories.DeskRequestRepository;
@@ -69,7 +72,7 @@ class DemoApplicationTests {
 		desk.setWidth(50);
 		desk.setLength(120);
 		desk.setTariff(5.0);
-		desk.setTariffType("HOUR");
+		desk.setTariffType(TariffTypes.HOUR);
 		return desk;
 	}
 
@@ -82,7 +85,7 @@ class DemoApplicationTests {
 			map.put("width", 50);
 			map.put("length", 120);
 			map.put("tariff", 5.0);
-			map.put("tariff_type", "HOUR");
+			map.put("tariff_type", TariffTypes.HOUR);
 			return mapper.writeValueAsString(map);
 		} catch (Exception e){
 			return "";
@@ -125,7 +128,7 @@ class DemoApplicationTests {
 		orderP.setId(1);
 		orderP.setDeskId(1);
 		orderP.setUserId(1);
-		orderP.setStatus("PERFECT");
+		orderP.setStatus(OrderPStatus.NEW);
 		orderP.setTotal(300.0);
 		return orderP;
 	}
@@ -137,7 +140,7 @@ class DemoApplicationTests {
 			map.put("id", 1);
 			map.put("desk_id", 1);
 			map.put("user_id", 1);
-			map.put("status", "PERFECT");
+			map.put("status", OrderPStatus.NEW);
 			map.put("total", 300.0);
 			return mapper.writeValueAsString(map);
 		} catch (Exception e){
@@ -171,7 +174,7 @@ class DemoApplicationTests {
 	UserP mockUserP(){
 		UserP userP = new UserP();
 		userP.setId(1);
-		userP.setType("USER");
+		userP.setType(UserPTypes.LOGGED_IN);
 		userP.setPassword("1234");
 		userP.setUsername("TestUsername");
 		return userP;
@@ -182,7 +185,7 @@ class DemoApplicationTests {
 			ObjectMapper mapper = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", 1);
-			map.put("type", "USER");
+			map.put("type", UserPTypes.LOGGED_IN);
 			map.put("password", "1234");
 			map.put("username", "TestUsername");
 			return mapper.writeValueAsString(map);
@@ -454,7 +457,7 @@ class DemoApplicationTests {
 		List<OrderP> orderPList = new ArrayList<OrderP>();
 		OrderP mockOrderP = mockOrderP();
 		OrderP mockOrderP2 = mockOrderP();
-		mockOrderP2.setStatus("PAID");
+		mockOrderP2.setStatus(OrderPStatus.PAID);
 		orderPList.add(mockOrderP2);
 		when(orderPRepository.findAll()).thenReturn(orderPList);
 		when(orderPRepository.save(mockOrderP)).thenReturn(mockOrderP);
@@ -564,7 +567,7 @@ class DemoApplicationTests {
 		List<UserP> userPList = new ArrayList<UserP>();
 		UserP mockUserP = mockUserP();
 		UserP mockUserP2 = mockUserP();
-		mockUserP2.setType("ADMIN");
+		mockUserP2.setType(UserPTypes.ADMIN);
 		userPList.add(mockUserP2);
 		when(userPRepository.findAll()).thenReturn(userPList);
 		when(userPRepository.save(mockUserP)).thenReturn(mockUserP);
@@ -623,13 +626,41 @@ class DemoApplicationTests {
 
 	// WaitingList Tests
 
-	// @Test
-	// void addWaitingPerson(){
-	// 	WaitingPerson waitingPerson = mockWaitingPerson();
-	// 	// when(deskRequestRepository.findAll()).thenAnswer(null)
-	// 	WaitingListHandler waitingListHandler = WaitingListHandler.instance(
-	// 		deskRequestRepository, deskRepository);
+	@Test
+	void addWaitingPersonSuccessAvailable(){
+		WaitingPerson waitingPerson = mockWaitingPerson();
+		waitingPerson.setDeskAvailable(true);
+		List<DeskRequest> deskRequestList = new ArrayList<DeskRequest>();
+		DeskRequest mockDeskRequest = mockDeskRequest();
+		DeskRequest mockDeskRequest2 = mockDeskRequest();
+		mockDeskRequest2.setId(2);
+		deskRequestList.add(mockDeskRequest);
+		deskRequestList.add(mockDeskRequest2);
+		when(deskRequestRepository.findAll()).thenReturn(deskRequestList);
+		WaitingListHandler waitingListHandler = WaitingListHandler.instance(
+			deskRequestRepository, deskRepository);
+		DataResponse response = waitingListHandler.add(mockWaitingPersonJSON());
+		assertEquals(DataResponseStatus.SUCCESS, response.getStatus());
+		assertEquals(waitingPerson, response.getData());
+	}
 
-	// }
+	
+	@Test
+	void addWaitingPersonSuccessUnavailable(){
+		WaitingPerson waitingPerson = mockWaitingPerson();
+		List<DeskRequest> deskRequestList = new ArrayList<DeskRequest>();
+		DeskRequest mockDeskRequest = mockDeskRequest();
+		DeskRequest mockDeskRequest2 = mockDeskRequest();
+		mockDeskRequest.setStatus(DeskStatus.RESERVED);
+		mockDeskRequest2.setId(2);
+		deskRequestList.add(mockDeskRequest);
+		deskRequestList.add(mockDeskRequest2);
+		when(deskRequestRepository.findAll()).thenReturn(deskRequestList);
+		WaitingListHandler waitingListHandler = WaitingListHandler.instance(
+			deskRequestRepository, deskRepository);
+		DataResponse response = waitingListHandler.add(mockWaitingPersonJSON());
+		assertEquals(DataResponseStatus.SUCCESS, response.getStatus());
+		assertEquals(waitingPerson, response.getData());
+	}
 
 }
