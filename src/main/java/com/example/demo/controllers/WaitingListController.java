@@ -47,7 +47,7 @@ public class WaitingListController {
     * @param id String -> user id 
     * @return DataResponse (status, message).
     */
-    @DeleteMapping(path="/waiting_list/remove")
+    @DeleteMapping(path="/waiting_list/delete")
     public @ResponseBody DataResponse removePersonFromList (@RequestParam("id") Integer id){
         return waitingListHandler().remove(id);
     }
@@ -56,7 +56,7 @@ public class WaitingListController {
     * Returns the status of a desk
     * @return DataResponse (status, message, status)
     */
-    @PostMapping(path="/waiting_list/check_status")
+    @PostMapping(path="/waiting_list/get_by")
     public @ResponseBody DataResponse checkStatus (@RequestBody String body){
         return waitingListHandler().checkDeskStatus(body);
     }
@@ -65,7 +65,7 @@ public class WaitingListController {
     * Returns all the users from in the waiting list
     * @return DataResponse (status, message, list of waiting persons)
     */
-    @GetMapping(path="/waiting_list/check_persons")
+    @GetMapping(path="/waiting_list/all")
     public @ResponseBody DataResponse checkPersons (){
         return waitingListHandler().checkPersons();
     }
