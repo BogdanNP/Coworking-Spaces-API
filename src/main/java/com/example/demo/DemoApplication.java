@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class DemoApplication {
-    // on Android app: instead of localhost use: 10.0.2.2
     // TODO: think about all the use cases and logic you need to add
     // * date-time should be in future
     // * we need a method to auto-update the desk reqests

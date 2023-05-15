@@ -11,7 +11,7 @@ import com.example.demo.models.DataResponse;
 import com.example.demo.models.DataResponseStatus;
 import com.example.demo.models.Desk;
 import com.example.demo.models.DeskRequest;
-import com.example.demo.models.DeskStatus;
+import com.example.demo.models.DeskRequestStatus;
 import com.example.demo.models.WaitingPerson;
 import com.example.demo.repositories.DeskRepository;
 import com.example.demo.repositories.DeskRequestRepository;
@@ -71,7 +71,7 @@ public class WaitingListHandler extends WaitingListPublisher{
             waitingPerson = new WaitingPerson(body);
             DataResponse dataResponse = this._checkDeskById(waitingPerson.getDeskId());
             if(dataResponse.getStatus() == DataResponseStatus.SUCCESS){
-                if(dataResponse.getMessage() == DeskStatus.AVAILABLE){
+                if(dataResponse.getMessage() == DeskRequestStatus.FINISHED){
                     waitingPerson.setDeskAvailable(true);
                 }
             }
@@ -138,7 +138,7 @@ public class WaitingListHandler extends WaitingListPublisher{
             while(deskRequestIt.hasNext()){
                 DeskRequest deskRequest = deskRequestIt.next();
                 if(deskRequest.getDeskId() == id){
-                    if(deskRequest.getStatus().compareTo(DeskStatus.AVAILABLE) == 0){
+                    if(deskRequest.getStatus().compareTo(DeskRequestStatus.FINISHED) == 0){
                         notifySubscribers(id, true);
                     } else {
                         notifySubscribers(id, false);
@@ -153,7 +153,7 @@ public class WaitingListHandler extends WaitingListPublisher{
                 Desk desk = desksIt.next();
                 if(desk.getId() == id){
                     notifySubscribers(id, true);
-                    return DataResponse.success(DeskStatus.AVAILABLE);
+                    return DataResponse.success("DESK AVAILABLE");
                 }
             }
             return DataResponse.error("there is no desk with id = " + id);

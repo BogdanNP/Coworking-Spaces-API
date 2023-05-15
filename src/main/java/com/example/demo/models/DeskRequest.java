@@ -60,7 +60,7 @@ class DeskRequest extends DataModel{
     } 
 
     /**
-     * Copies all the data from one source desk to the current object.
+     * Copies all the data from source to the current object.
      * @param source
      */
     @Override

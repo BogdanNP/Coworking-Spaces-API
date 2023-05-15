@@ -27,7 +27,7 @@ import com.example.demo.models.DataResponse;
 import com.example.demo.models.DataResponseStatus;
 import com.example.demo.models.Desk;
 import com.example.demo.models.DeskRequest;
-import com.example.demo.models.DeskStatus;
+import com.example.demo.models.DeskRequestStatus;
 import com.example.demo.models.OrderP;
 import com.example.demo.models.OrderPStatus;
 import com.example.demo.models.Room;
@@ -97,7 +97,7 @@ class DemoApplicationTests {
 		DeskRequest deskRequest = new DeskRequest(); 
 		deskRequest.setId(1);
 		deskRequest.setDeskId(1);
-		deskRequest.setStatus(DeskStatus.AVAILABLE);
+		deskRequest.setStatus(DeskRequestStatus.CURRENT);
 		deskRequest.setUserId(1);
 		try {
 			deskRequest.setStartDate(dateFormater.parse("09-05-2023-00:22:23"));
@@ -113,7 +113,7 @@ class DemoApplicationTests {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", 1);
 			map.put("desk_id", 1);
-			map.put("status", DeskStatus.AVAILABLE);
+			map.put("status", DeskRequestStatus.CURRENT);
 			map.put("user_id", 1);
 			map.put("start_date", "09-05-2023-00:22:23");
 			map.put("end_date", "09-05-2023-07:22:23");
@@ -357,7 +357,7 @@ class DemoApplicationTests {
 		List<DeskRequest> deskRequestList = new ArrayList<DeskRequest>();
 		DeskRequest mockDeskRequest = mockDeskRequest();
 		DeskRequest mockDeskRequest2 = mockDeskRequest();
-		mockDeskRequest2.setStatus(DeskStatus.RESERVED);
+		mockDeskRequest2.setStatus(DeskRequestStatus.RESERVED);
 		deskRequestList.add(mockDeskRequest2);
 		when(deskRequestRepository.findAll()).thenReturn(deskRequestList);
 		when(deskRequestRepository.save(mockDeskRequest)).thenReturn(mockDeskRequest);
@@ -649,7 +649,7 @@ class DemoApplicationTests {
 		List<DeskRequest> deskRequestList = new ArrayList<DeskRequest>();
 		DeskRequest mockDeskRequest = mockDeskRequest();
 		DeskRequest mockDeskRequest2 = mockDeskRequest();
-		mockDeskRequest.setStatus(DeskStatus.RESERVED);
+		mockDeskRequest.setStatus(DeskRequestStatus.RESERVED);
 		mockDeskRequest2.setId(2);
 		deskRequestList.add(mockDeskRequest);
 		deskRequestList.add(mockDeskRequest2);
