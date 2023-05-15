@@ -30,7 +30,7 @@ public class UserPController{
     }
   
   /**
-  * Creates and new user and saves it in the DB.
+  * Creates a new user and saves it in the DB.
   * @param body String -> desk object in json format
   * @apiNote user object contains the following:
   * @apiNote username
@@ -67,7 +67,7 @@ public class UserPController{
   }
 
   /**
-  * Deletes a user from DB.
+  * Deletes an user from DB.
   * @param id String -> desk id 
   * @return DataResponse (status, message).
   */
