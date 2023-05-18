@@ -77,4 +77,9 @@ public class DeskRequestController {
   public @ResponseBody DataResponse deleteDeskRequest (@RequestParam("id") Integer id) {
     return deskRequestHandler().delete(id);
   }
+
+  @GetMapping(path="/desk_request/user")
+  public @ResponseBody DataResponse getDeskRequestsByUserId(@RequestParam("id") Integer id) {
+   return deskRequestHandler().findByUserId(id);
+  }
 }

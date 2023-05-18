@@ -1,6 +1,10 @@
 package com.example.demo.handlers;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import com.example.demo.models.DataResponse;
+import com.example.demo.models.DataResponseStatus;
 import com.example.demo.models.DeskRequest;
 import com.example.demo.repositories.DeskRequestRepository;
 
@@ -70,5 +74,22 @@ public class DeskRequestHandler {
      */
     public DataResponse delete(Integer id){
         return dataHandler.delete(id);
+    }
+
+    public DataResponse findByUserId(Integer id){
+        DataResponse allDeskRequestsData = dataHandler.findAll();
+        if(allDeskRequestsData.getStatus() == DataResponseStatus.SUCCESS){
+            Iterable<DeskRequest> allDesks = (Iterable<DeskRequest>) allDeskRequestsData.getData();
+            ArrayList<DeskRequest> userDeskRequests = new ArrayList<DeskRequest>();
+            Iterator<DeskRequest> it = allDesks.iterator();
+            while(it.hasNext()){
+                DeskRequest d = it.next();
+                if(id.equals(d.getUserId())){
+                    userDeskRequests.add(d);
+                }
+            }
+            return DataResponse.success(userDeskRequests);
+        }
+        return allDeskRequestsData;
     }
 }

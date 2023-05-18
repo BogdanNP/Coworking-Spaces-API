@@ -84,7 +84,7 @@ public class DeskHandler {
             Iterator<Desk> it = allDesks.iterator();
             while(it.hasNext()){
                 Desk d = it.next();
-                if(d.getRoomId() == id){
+                if(id.equals(d.getRoomId())){
                     roomDesks.add(d);
                 }
             }

@@ -82,7 +82,7 @@ public class DeskController {
   }
 
   @GetMapping(path="/desk/room")
-  public @ResponseBody DataResponse getByRoomId(@RequestParam("id") Integer id) {
+  public @ResponseBody DataResponse getDesksByRoomId(@RequestParam("id") Integer id) {
    return deskHandler().findByRoomId(id);
   }  
   
