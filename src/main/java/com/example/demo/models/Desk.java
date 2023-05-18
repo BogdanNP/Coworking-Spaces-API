@@ -21,6 +21,8 @@ public class Desk extends DataModel{
     private Integer length;
     private Double tariff;
     private String tariffType;
+    private String status;
+    private Integer roomId;
 
     public Desk(){}
 
@@ -32,6 +34,8 @@ public class Desk extends DataModel{
 		desk.setLength(length);
 		desk.setTariff(tariff);
 		desk.setTariffType(tariffType);
+		desk.setStatus(status);
+		desk.setRoomId(roomId);
         return desk;
     }
 
@@ -50,6 +54,8 @@ public class Desk extends DataModel{
         setLength((Integer)map.get("length"));
         setTariff((Double)map.get("tariff"));
         setTariffType((String)map.get("tariff_type"));
+        setStatus((String)map.get("status"));
+        setRoomId((Integer)map.get("room_id"));
     } 
 
     /**
@@ -73,6 +79,12 @@ public class Desk extends DataModel{
         } 
         if(source.getTariffType() != null){
             setTariffType(source.getTariffType());
+        }
+        if(source.getRoomId() != null){
+            setRoomId(source.getRoomId());
+        }  
+        if(source.getStatus() != null){
+            setStatus(source.getStatus());
         }
     }
 
@@ -171,6 +183,8 @@ public class Desk extends DataModel{
         && width.equals(desk.getWidth())
         && length.equals(desk.getLength()) 
         && tariff.equals(desk.getTariff()) 
+        && roomId.equals(desk.getRoomId()) 
+        && status.equals(desk.getStatus()) 
         && tariffType.equals(desk.getTariffType()); 
     }
 
@@ -182,7 +196,38 @@ public class Desk extends DataModel{
        + "; length="+length
        + "; tariff="+tariff
        + "; tariffType="+tariffType
+       + "; roomId="+roomId
+       + "; status="+status
        + "]";
+    }
+
+
+    /**
+     * @return String return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * @return Integer return the roomId
+     */
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    /**
+     * @param roomId the roomId to set
+     */
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
 }

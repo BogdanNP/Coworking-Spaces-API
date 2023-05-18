@@ -81,4 +81,9 @@ public class DeskController {
       return deskHandler().delete(id);
   }
 
+  @GetMapping(path="/desk/room")
+  public @ResponseBody DataResponse getByRoomId(@RequestParam("id") Integer id) {
+   return deskHandler().findByRoomId(id);
+  }  
+  
 }
