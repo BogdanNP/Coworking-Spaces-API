@@ -1,6 +1,10 @@
 package com.example.demo.handlers;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import com.example.demo.models.DataResponse;
+import com.example.demo.models.DataResponseStatus;
 import com.example.demo.models.OrderP;
 import com.example.demo.repositories.OrderPRepository;
 
@@ -70,5 +74,22 @@ public class OrderPHandler {
      */
     public DataResponse delete(Integer id){
         return dataHandler.delete(id);
+    }
+    
+    public DataResponse findByUserId(Integer id){
+        DataResponse allOrdersDataResponse = dataHandler.findAll();
+        if(allOrdersDataResponse.getStatus() == DataResponseStatus.SUCCESS){
+            Iterable<OrderP> allOrders = (Iterable<OrderP>) allOrdersDataResponse.getData();
+            ArrayList<OrderP> userOrders = new ArrayList<OrderP>();
+            Iterator<OrderP> it = allOrders.iterator();
+            while(it.hasNext()){
+                OrderP o = it.next();
+                if(id.equals(o.getUserId())){
+                    userOrders.add(o);
+                }
+            }
+            return DataResponse.success(userOrders);
+        }
+        return allOrdersDataResponse;
     }
 }

@@ -76,5 +76,13 @@ public class UserPController{
       return userPHandler().delete(id);
   }
   
-  
+  @PostMapping(path="/user/login")
+  public @ResponseBody DataResponse login (@RequestBody String body) {
+    return userPHandler().login(body);
+  }
+
+  @PostMapping(path="/user/register")
+  public @ResponseBody DataResponse register (@RequestBody String body) {
+    return userPHandler().register(body);
+  }
 }

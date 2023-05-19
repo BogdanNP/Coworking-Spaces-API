@@ -37,6 +37,15 @@ public class DeskRequestHandler {
     public DataResponse save(String body){
         DeskRequest deskRequest;
         try{
+            //ignore>>>
+            //check if the user exists => it should, bc he can make a request just if it is loged in
+            //check if the desk exists => it should, bc the user can access just the existing desks
+            //<<ignore
+
+            //check if the desk is reserved in the selected interval
+            //update desk status when the user makes the check-in
+            //update desk status when the user makes the check-out
+            //create order to pay after the check-out
             deskRequest = new DeskRequest(body);
         }catch(Exception e){
             return DataResponse.error(e);

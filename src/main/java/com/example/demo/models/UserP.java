@@ -15,9 +15,9 @@ import jakarta.persistence.Id;
 public class UserP extends DataModel{
 
   // @GeneratedValue(strategy=GenerationType.AUTO)
+  @Id
   private Integer id;
   private String type;
-  @Id
   private String username;
   private String password;
 

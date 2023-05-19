@@ -91,4 +91,14 @@ public class DataHandler<T extends DataModel> {
             return DataResponse.error(e);
         }
     }
+
+    //Maybe use this???
+    public DataResponse findById(Integer id){
+        try{
+            T dataModel = repository.findById(id).get();
+            return DataResponse.success(dataModel);
+        } catch (Exception e){
+            return DataResponse.error(e);
+        }
+    }
 }

@@ -78,4 +78,9 @@ public class OrderPController {
   public @ResponseBody DataResponse deleteDeskRequest (@RequestParam("id") Integer id) {
     return orderPHandler().delete(id);
   }
+
+  @GetMapping(path="/order/user")
+  public @ResponseBody DataResponse getOrdersByUserId(@RequestParam("id") Integer id) {
+   return orderPHandler().findByUserId(id);
+  }
 }
