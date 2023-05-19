@@ -18,6 +18,12 @@ public abstract class DataModel {
      */
     public abstract Integer getId();
 
+    
+    /**
+     * Method used for setting the id of the object, required for save.
+     */
+    public abstract void setId(Integer id);
+
     /**
      * Updates the current object with the data from the object recieved as a parameter. Required for update.
      * @param dataModel

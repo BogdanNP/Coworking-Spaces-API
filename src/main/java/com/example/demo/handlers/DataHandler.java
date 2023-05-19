@@ -22,6 +22,7 @@ public class DataHandler<T extends DataModel> {
      */
     public DataResponse save(T dataModel){
         try{
+            dataModel.setId((int)repository.count());
             return DataResponse.success(repository.save(dataModel), "Created.");
         }catch(Exception e){
             DataResponse dataResponse = DataResponse.error(e);
@@ -52,9 +53,6 @@ public class DataHandler<T extends DataModel> {
      */
     public DataResponse update(T dataModelToUpdate){
         try{
-
-            //TODO: update this method in order to keep the same id;
-
             Iterable<T> dataModels =  repository.findAll();
             Iterator<T> it = dataModels.iterator();
             while(it.hasNext()){

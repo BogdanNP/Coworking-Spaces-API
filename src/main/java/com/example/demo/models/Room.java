@@ -8,14 +8,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+// import jakarta.persistence.GeneratedValue;
+// import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Room extends DataModel{
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    // @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private Integer width;
     private Integer length;
@@ -45,9 +45,6 @@ public class Room extends DataModel{
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map = mapper.readValue(json, Map.class);
         setDetails((String)map.get("details"));
-        //TODO: check DB logic
-        //Maybe a desk should know the room id, and the room should not know all the desks
-        // setDeskList((List)map.get("desk_list"));
         setWidth((Integer)map.get("width"));
         setLength((Integer)map.get("length"));
     }
@@ -82,6 +79,7 @@ public class Room extends DataModel{
     /**
      * @param id the id to set
      */
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

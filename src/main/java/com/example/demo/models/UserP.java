@@ -7,14 +7,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+// import jakarta.persistence.GeneratedValue;
+// import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class UserP extends DataModel{
 
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  // @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   private String type;
   @Id
@@ -70,6 +70,7 @@ public class UserP extends DataModel{
     return id;
   }
 
+  @Override
   public void setId(Integer id) {
     this.id = id;
   }
