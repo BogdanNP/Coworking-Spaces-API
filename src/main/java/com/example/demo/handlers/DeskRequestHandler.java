@@ -42,12 +42,26 @@ public class DeskRequestHandler {
             //check if the desk exists => it should, bc the user can access just the existing desks
             //<<ignore
 
-            //check if the desk is reserved in the selected interval
-            //   -> check other desk request by the desk id
+            //check if the desk is already reserved in the selected interval
+            //   -> check other desk requests by the desk id
             //update desk status when the user makes the check-in
-            //update desk status when the user makes the check-out
+            //update desk status when the user makes the check-out 
+            //or after some time, if possible... or let the admin manage that :D 
             //create order to pay after the check-out
             deskRequest = new DeskRequest(body);
+            //TODO: finish this
+            // DataResponse allDeskRequests = findAll();
+            // if(allDeskRequests.getStatus() == DataResponseStatus.SUCCESS){
+            //     Iterator<DeskRequest> it = ((Iterable<DeskRequest>) allDeskRequests.getData()).iterator();
+            //     while(it.hasNext()){
+            //         DeskRequest dataModel = it.next();
+            //         if(dataModel.getDeskId().equals(deskRequest.getId())){
+            //             repository.delete(dataModel);
+            //             dataModel.updateFrom(dataModelToUpdate);
+            //             return DataResponse.success(repository.save(dataModel), "Updated.");
+            //         }
+            //     }
+            // }
         }catch(Exception e){
             return DataResponse.error(e);
         }

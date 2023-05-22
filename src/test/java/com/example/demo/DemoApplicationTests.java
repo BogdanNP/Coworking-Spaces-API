@@ -357,7 +357,7 @@ class DemoApplicationTests {
 		List<DeskRequest> deskRequestList = new ArrayList<DeskRequest>();
 		DeskRequest mockDeskRequest = mockDeskRequest();
 		DeskRequest mockDeskRequest2 = mockDeskRequest();
-		mockDeskRequest2.setStatus(DeskRequestStatus.RESERVED);
+		mockDeskRequest2.setStatus(DeskRequestStatus.FUTURE);
 		deskRequestList.add(mockDeskRequest2);
 		when(deskRequestRepository.findAll()).thenReturn(deskRequestList);
 		when(deskRequestRepository.save(mockDeskRequest)).thenReturn(mockDeskRequest);
@@ -649,7 +649,7 @@ class DemoApplicationTests {
 		List<DeskRequest> deskRequestList = new ArrayList<DeskRequest>();
 		DeskRequest mockDeskRequest = mockDeskRequest();
 		DeskRequest mockDeskRequest2 = mockDeskRequest();
-		mockDeskRequest.setStatus(DeskRequestStatus.RESERVED);
+		mockDeskRequest.setStatus(DeskRequestStatus.FUTURE);
 		mockDeskRequest2.setId(2);
 		deskRequestList.add(mockDeskRequest);
 		deskRequestList.add(mockDeskRequest2);

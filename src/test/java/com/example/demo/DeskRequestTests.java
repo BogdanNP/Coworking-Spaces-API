@@ -116,7 +116,7 @@ class DeskRequestTests {
 		List<DeskRequest> deskRequestList = new ArrayList<DeskRequest>();
 		DeskRequest mockDeskRequest = mockDeskRequest();
 		DeskRequest mockDeskRequest2 = mockDeskRequest();
-		mockDeskRequest2.setStatus(DeskRequestStatus.RESERVED);
+		mockDeskRequest2.setStatus(DeskRequestStatus.FUTURE);
 		deskRequestList.add(mockDeskRequest2);
 		when(deskRequestRepository.findAll()).thenReturn(deskRequestList);
 		when(deskRequestRepository.save(mockDeskRequest)).thenReturn(mockDeskRequest);

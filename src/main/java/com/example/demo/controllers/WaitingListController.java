@@ -56,10 +56,20 @@ public class WaitingListController {
     * Returns the status of a desk
     * @return DataResponse (status, message, status)
     */
-    @PostMapping(path="/waiting_list/get_by")
-    public @ResponseBody DataResponse checkStatus (@RequestBody String body){
-        return waitingListHandler().checkDeskStatus(body);
+    @GetMapping(path="/waiting_list/desk")
+    public @ResponseBody DataResponse checkDeskStatus (@RequestParam("id") Integer deskId){
+        return waitingListHandler().checkDeskStatus(deskId);
     }
+
+    /**
+    * Returns all the desks from the waiting list which have the same user id
+    * @return DataResponse (status, message, status)
+    */
+    @GetMapping(path="/waiting_list/user")
+    public @ResponseBody DataResponse getByUserId (@RequestParam("id") Integer userId){
+        return waitingListHandler().getByUserId(userId);
+    }
+
 
     /**
     * Returns all the users from in the waiting list
