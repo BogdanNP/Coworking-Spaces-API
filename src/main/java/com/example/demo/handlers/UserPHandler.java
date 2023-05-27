@@ -2,7 +2,6 @@ package com.example.demo.handlers;
 
 import java.util.Iterator;
 
-import org.hibernate.usertype.UserType;
 
 import com.example.demo.models.DataResponse;
 import com.example.demo.models.DataResponseStatus;
@@ -41,7 +40,6 @@ public class UserPHandler {
         try{
             userP = new UserP(body);
             userP.setPassword("1234");
-            userP.setType(UserPTypes.LOGGED_IN);
             if (_getByUsername(userP.getUsername()) != null){
                 return DataResponse.error("Username already in use");
             } else {

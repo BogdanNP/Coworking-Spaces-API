@@ -6,6 +6,8 @@ import java.util.Iterator;
 import com.example.demo.models.DataResponse;
 import com.example.demo.models.DataResponseStatus;
 import com.example.demo.models.DeskRequest;
+import com.example.demo.models.DeskRequestStatus;
+import com.example.demo.models.DeskStatus;
 import com.example.demo.repositories.DeskRequestRepository;
 
 public class DeskRequestHandler {
@@ -50,18 +52,26 @@ public class DeskRequestHandler {
             //create order to pay after the check-out
             deskRequest = new DeskRequest(body);
             //TODO: finish this
-            // DataResponse allDeskRequests = findAll();
-            // if(allDeskRequests.getStatus() == DataResponseStatus.SUCCESS){
-            //     Iterator<DeskRequest> it = ((Iterable<DeskRequest>) allDeskRequests.getData()).iterator();
-            //     while(it.hasNext()){
-            //         DeskRequest dataModel = it.next();
-            //         if(dataModel.getDeskId().equals(deskRequest.getId())){
-            //             repository.delete(dataModel);
-            //             dataModel.updateFrom(dataModelToUpdate);
-            //             return DataResponse.success(repository.save(dataModel), "Updated.");
-            //         }
-            //     }
-            // }
+            DataResponse allDeskRequests = findAll();
+            if(allDeskRequests.getStatus() == DataResponseStatus.SUCCESS){
+                Iterator<DeskRequest> it = ((Iterable<DeskRequest>) allDeskRequests.getData()).iterator();
+                while(it.hasNext()){
+                    DeskRequest dataModel = it.next();
+                    if(dataModel.getDeskId().equals(deskRequest.getId())){
+                        if(dataModel.getStatus().equals(DeskRequestStatus.FUTURE) ||
+                            dataModel.getStatus().equals(DeskRequestStatus.CURRENT)){
+                        if(dataModel.getStartDate().compareTo(deskRequest.getStartDate()) >=0 &&
+                            dataModel.getStartDate().compareTo(deskRequest.getStartDate()) <= 0){
+                                
+                            }  
+                        // repository.delete(dataModel);
+                        // dataModel.updateFrom(dataModelToUpdate);
+                        // return DataResponse.success(repository.save(dataModel), "Updated.");
+                        }
+                    }
+                   
+                }
+            }
         }catch(Exception e){
             return DataResponse.error(e);
         }
