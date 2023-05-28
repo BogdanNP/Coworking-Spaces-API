@@ -1,22 +1,27 @@
 package com.example.demo.handlers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import com.example.demo.models.DataResponse;
 import com.example.demo.models.DataResponseStatus;
+import com.example.demo.models.Desk;
 import com.example.demo.models.DeskRequest;
 import com.example.demo.models.DeskRequestStatus;
 import com.example.demo.models.DeskStatus;
+import com.example.demo.repositories.DeskRepository;
 import com.example.demo.repositories.DeskRequestRepository;
 
 public class DeskRequestHandler {
 
     private DataHandler<DeskRequest> dataHandler;
+    private DataHandler<Desk> deskDataHandler;
     private static DeskRequestHandler _instance;
     
-    private DeskRequestHandler(DeskRequestRepository deskRequestRepository){
+    private DeskRequestHandler(DeskRequestRepository deskRequestRepository, DeskRepository deskRepository){
         this.dataHandler = new DataHandler<DeskRequest>(deskRequestRepository);
+        this.deskDataHandler = new DataHandler<Desk>(deskRepository);
     }
 
     /**
@@ -24,9 +29,9 @@ public class DeskRequestHandler {
      * @param deskRequestRepository
      * @return DeskRequestHandler (_instance)
      */
-    public static DeskRequestHandler instance(DeskRequestRepository deskRequestRepository){
+    public static DeskRequestHandler instance(DeskRequestRepository deskRequestRepository, DeskRepository deskRepository){
         if(_instance == null){
-            _instance = new DeskRequestHandler(deskRequestRepository);
+            _instance = new DeskRequestHandler(deskRequestRepository, deskRepository);
         }
         return _instance;
     }
@@ -39,19 +44,7 @@ public class DeskRequestHandler {
     public DataResponse save(String body){
         DeskRequest deskRequest;
         try{
-            //ignore>>>
-            //check if the user exists => it should, bc he can make a request just if it is loged in
-            //check if the desk exists => it should, bc the user can access just the existing desks
-            //<<ignore
-
-            //check if the desk is already reserved in the selected interval
-            //   -> check other desk requests by the desk id
-            //update desk status when the user makes the check-in
-            //update desk status when the user makes the check-out 
-            //or after some time, if possible... or let the admin manage that :D 
-            //create order to pay after the check-out
             deskRequest = new DeskRequest(body);
-            //TODO: finish this
             DataResponse allDeskRequests = findAll();
             if(allDeskRequests.getStatus() == DataResponseStatus.SUCCESS){
                 Iterator<DeskRequest> it = ((Iterable<DeskRequest>) allDeskRequests.getData()).iterator();
@@ -60,22 +53,27 @@ public class DeskRequestHandler {
                     if(dataModel.getDeskId().equals(deskRequest.getId())){
                         if(dataModel.getStatus().equals(DeskRequestStatus.FUTURE) ||
                             dataModel.getStatus().equals(DeskRequestStatus.CURRENT)){
-                        if(dataModel.getStartDate().compareTo(deskRequest.getStartDate()) >=0 &&
-                            dataModel.getStartDate().compareTo(deskRequest.getStartDate()) <= 0){
-                                
-                            }  
-                        // repository.delete(dataModel);
-                        // dataModel.updateFrom(dataModelToUpdate);
-                        // return DataResponse.success(repository.save(dataModel), "Updated.");
+                        if((dataModel.getStartDate().compareTo(deskRequest.getStartDate()) >=0 &&
+                            dataModel.getStartDate().compareTo(deskRequest.getEndDate()) <= 0) || 
+                            (dataModel.getEndDate().compareTo(deskRequest.getStartDate()) >=0 &&
+                            dataModel.getEndDate().compareTo(deskRequest.getEndDate()) <= 0)){
+                                return DataResponse.error("Cannot create desk request in the interval selected");
+                            }
                         }
-                    }
-                   
+                    } 
                 }
+                if(deskRequest.getStatus().equals(DeskRequestStatus.CURRENT)){
+                    Desk desk = new Desk();
+                    desk.setId(deskRequest.getDeskId());
+                    desk.setStatus(DeskStatus.RESERVED);
+                    deskDataHandler.update(desk);
+                }
+                return dataHandler.save(deskRequest);
             }
+            return DataResponse.error(allDeskRequests.getMessage());
         }catch(Exception e){
             return DataResponse.error(e);
         }
-        return dataHandler.save(deskRequest);      
     }
 
     /**
@@ -95,10 +93,50 @@ public class DeskRequestHandler {
         DeskRequest deskRequest;
         try{
             deskRequest = new DeskRequest(body);
+            DataResponse allDeskRequests = findAll();
+            Date currentDate = new Date();               
+            Desk desk = (Desk) deskDataHandler.findById(deskRequest.getDeskId()).getData();
+           
+            if(allDeskRequests.getStatus() == DataResponseStatus.SUCCESS){
+                Iterator<DeskRequest> it = ((Iterable<DeskRequest>) allDeskRequests.getData()).iterator();
+                while(it.hasNext()){
+                    DeskRequest dataModel = it.next();
+                    if(dataModel.getId().equals(deskRequest.getId())){
+                        if(dataModel.getStatus().equals(DeskRequestStatus.CURRENT)){
+                            if(deskRequest.getStatus().equals(DeskRequestStatus.FINISHED)){
+                                desk.setStatus(DeskStatus.AVAILABLE); 
+                            }
+                        }
+                    }
+                    if( !(dataModel.getId().equals(deskRequest.getId())) &&
+                        dataModel.getDeskId().equals(deskRequest.getDeskId())){
+                        if(dataModel.getStatus().equals(DeskRequestStatus.FUTURE) ||
+                            dataModel.getStatus().equals(DeskRequestStatus.CURRENT)){
+                        if((dataModel.getStartDate().compareTo(deskRequest.getStartDate()) >=0 &&
+                            dataModel.getStartDate().compareTo(deskRequest.getEndDate()) <= 0) || 
+                            (dataModel.getEndDate().compareTo(deskRequest.getStartDate()) >=0 &&
+                            dataModel.getEndDate().compareTo(deskRequest.getEndDate()) <= 0)){
+                                return DataResponse.error("Cannot update desk request with the interval selected");
+                            }
+                        }
+                    } 
+                }
+                if(deskRequest.getStatus().equals(DeskRequestStatus.CURRENT)){
+                    if(deskRequest.getStartDate().compareTo(currentDate) <= 0 && deskRequest.getEndDate().compareTo(currentDate) >= 0){
+                        desk.setStatus(DeskStatus.RESERVED);
+                    }
+                }
+                if(deskRequest.getEndDate().compareTo(currentDate) <= 0){
+                    deskRequest.setStatus(DeskRequestStatus.FINISHED);
+                    desk.setStatus(DeskStatus.AVAILABLE);
+                }
+                deskDataHandler.update(desk);
+                return dataHandler.update(deskRequest);
+            }
+            return DataResponse.error(allDeskRequests.getMessage());
         }catch(Exception e){
             return DataResponse.error(e);
         }
-        return dataHandler.update(deskRequest);      
     }
 
     /**

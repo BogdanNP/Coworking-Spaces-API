@@ -3,7 +3,6 @@ package com.example.demo.handlers;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import com.example.demo.WaitingListPublisher;
 import com.example.demo.WaitingListSubscriber;
@@ -15,7 +14,6 @@ import com.example.demo.models.DeskRequestStatus;
 import com.example.demo.models.WaitingPerson;
 import com.example.demo.repositories.DeskRepository;
 import com.example.demo.repositories.DeskRequestRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class WaitingListHandler extends WaitingListPublisher{
     

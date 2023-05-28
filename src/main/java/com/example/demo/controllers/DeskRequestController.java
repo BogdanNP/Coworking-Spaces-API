@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.handlers.DeskRequestHandler;
 import com.example.demo.models.DataResponse;
+import com.example.demo.repositories.DeskRepository;
 import com.example.demo.repositories.DeskRequestRepository;
 
 @Controller 
@@ -21,10 +22,12 @@ import com.example.demo.repositories.DeskRequestRepository;
 public class DeskRequestController {
 
   @Autowired 
-  private DeskRequestRepository deskRequestRepository;  
+  private DeskRequestRepository deskRequestRepository;
+  @Autowired  
+  private DeskRepository deskRepository;  
   
   private DeskRequestHandler deskRequestHandler(){
-    return DeskRequestHandler.instance(deskRequestRepository);
+    return DeskRequestHandler.instance(deskRequestRepository, deskRepository);
   }
 
   /**

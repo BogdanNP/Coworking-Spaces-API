@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -50,6 +51,7 @@ class DeskRequest extends DataModel{
     public DeskRequest(String json) throws JsonMappingException, JsonProcessingException, ParseException{
         ObjectMapper mapper = new ObjectMapper();
         SimpleDateFormat dateFormater = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
+        dateFormater.setTimeZone(TimeZone.getTimeZone("EEST"));
         Map<String, Object> map = mapper.readValue(json, Map.class);
         setId((Integer)map.get("id"));
         setStatus((String)map.get("status"));
