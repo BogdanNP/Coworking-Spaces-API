@@ -3,6 +3,9 @@
 Acest proiect permite utilizatorilor sa inchirieze
 birouri pe o anumita durata de timp, din spatii special destinate pentru munca pe care o desfasoara.  Utilizatorii pot vedea spatiile de lucru din aplicatie si sa inchirieze un birou pentru o anumita perioada de timp.  
 
+## Aplicatia de Front-End: (Mobile Flutter App)
+https://github.com/BogdanNP/ProiectPS_Mobile
+
 ## Functionalitati:  
 ### Utilizator Neingregistrat:
     * vizualizarea spatiilor
