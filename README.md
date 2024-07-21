@@ -1,5 +1,4 @@
 #  Aplicatie pentru spatii de coworking  (App for Coworking Spaces - Back End)
-## Descriere:
 Acest proiect permite utilizatorilor sa inchirieze
 birouri pe o anumita durata de timp, din spatii special destinate pentru munca pe care o desfasoara.  Utilizatorii pot vedea spatiile de lucru din aplicatie si sa inchirieze un birou pentru o anumita perioada de timp.  
 
